@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "home": "Home",
+    "dbtCheck": "DBT Status Check",
+    "seedingGuide": "Seeding Guide",
+    "awareness": "Awareness",
+    "campBooking": "Book Assistance",
+    "login": "Login",
+    "logout": "Logout",
+    "dashboard": "Dashboard"
+  },
+  "home": {
+    "title": "Direct Benefit Transfer Portal",
+    "subtitle": "Check your DBT status and get assistance with bank account seeding",
+    "welcomeMessage": "Welcome to the official DBT status portal. Ensure your benefits reach you directly.",
+    "quickLinks": "Quick Links",
+    "checkStatus": "Check DBT Status",
+    "seedingGuide": "Seeding Guide",
+    "awareness": "Learn More",
+    "bookCamp": "Book Assistance Camp"
+  },
+  "dbtCheck": {
+    "title": "Check Your DBT Status",
+    "subtitle": "Verify if your bank account is linked and DBT enabled",
+    "aadhaarLabel": "Last 4 digits of Aadhaar",
+    "applicationLabel": "Application ID / Account Number",
+    "checkButton": "Check Status",
+    "statusEnabled": "DBT Enabled",
+    "statusLinkedNotEnabled": "Linked but DBT Not Enabled",
+    "statusNotLinked": "Not Linked",
+    "enabledMessage": "Your account is DBT enabled. Benefits will be transferred directly.",
+    "linkedMessage": "Your account is linked but DBT is not enabled. Please follow the seeding guide.",
+    "notLinkedMessage": "Your account is not linked. Please follow the seeding guide to link your account.",
+    "guidanceButton": "View Seeding Guide",
+    "bookAssistance": "Book Assistance Camp"
+  },
+  "seedingGuide": {
+    "title": "Bank Account Seeding Guide",
+    "subtitle": "Step-by-step instructions to link your bank account with Aadhaar",
+    "onlineBanking": "Net Banking",
+    "atmMethod": "ATM",
+    "branchVisit": "Branch Visit",
+    "cscMethod": "CSC Center"
+  },
+  "awareness": {
+    "title": "DBT Awareness",
+    "subtitle": "Learn about Direct Benefit Transfer and its benefits",
+    "faqTitle": "Frequently Asked Questions",
+    "videosTitle": "Educational Videos",
+    "resourcesTitle": "Downloadable Resources"
+  },
+  "campBooking": {
+    "title": "Book Assistance Camp",
+    "subtitle": "Get help from our experts at nearby assistance centers",
+    "selectLocation": "Select Location",
+    "selectDate": "Select Date",
+    "selectTime": "Select Time Slot",
+    "bookButton": "Book Appointment",
+    "confirmationTitle": "Booking Confirmed",
+    "bookingId": "Booking ID"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "name": "Full Name",
+    "phone": "Phone Number",
+    "loginButton": "Login",
+    "signupButton": "Create Account",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "totalUsers": "Total Users",
+    "dbtEnabled": "DBT Enabled",
+    "pendingRequests": "Pending Requests",
+    "campBookings": "Camp Bookings",
+    "searchPlaceholder": "Search by Aadhaar or Application ID",
+    "bulkUpload": "Bulk Upload CSV",
+    "exportData": "Export Data"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success!",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View"
+  }
+}

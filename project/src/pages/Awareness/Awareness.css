@@ -1,0 +1,167 @@
+/* Awareness page specific styles */
+.faq-item {
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.faq-item:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.faq-question {
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+  transition: background-color 0.2s ease;
+}
+
+.faq-question:hover {
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+.faq-answer {
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  animation: slideDown 0.3s ease-out;
+}
+
+.support-channel {
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.support-channel:hover {
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  transform: translateY(-2px);
+}
+
+.support-icon {
+  transition: all 0.3s ease;
+}
+
+.support-channel:hover .support-icon {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  transform: scale(1.1);
+}
+
+.support-channel:hover .support-icon svg {
+  color: white;
+}
+
+.video-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.video-thumbnail {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.video-overlay {
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+  transition: all 0.3s ease;
+}
+
+.video-card:hover .video-overlay {
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
+}
+
+.play-button {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+}
+
+.video-card:hover .play-button {
+  background: rgba(255, 255, 255, 0.95);
+  transform: scale(1.2);
+}
+
+.resource-item {
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.resource-item:hover {
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  transform: translateY(-1px);
+}
+
+.resource-icon {
+  transition: all 0.3s ease;
+}
+
+.resource-item:hover .resource-icon {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  transform: scale(1.05);
+}
+
+.resource-item:hover .resource-icon svg {
+  color: white;
+}
+
+.external-link {
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.external-link:hover {
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.benefit-card {
+  text-align: center;
+  padding: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-4px);
+}
+
+.benefit-icon {
+  transition: all 0.3s ease;
+}
+
+.benefit-card:hover .benefit-icon {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  transform: scale(1.1);
+}
+
+.benefit-card:hover .benefit-icon svg {
+  color: white;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 200px;
+    padding-top: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .external-links-grid {
+    grid-template-columns: 1fr;
+  }
+}
