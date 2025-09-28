@@ -37,7 +37,12 @@ export const AuthProvider = ({ children }) => {
       
       setUser(userData);
       localStorage.setItem('dbt_user', JSON.stringify(userData));
-      return userData;
+      
+      // Return user data with redirect info
+      return {
+        ...userData,
+        redirectTo: userData.role === 'admin' ? '/admin' : '/'
+      };
     } catch (error) {
       throw new Error('Login failed');
     }

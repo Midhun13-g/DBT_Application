@@ -64,8 +64,8 @@ const Login = () => {
 
     setLoading(true);
     try {
-      await login(formData.email, formData.password);
-      navigate('/');
+      const result = await login(formData.email, formData.password);
+      navigate(result.redirectTo || '/');
     } catch (error) {
       setErrors({ submit: 'Invalid email or password. Please try again.' });
     } finally {

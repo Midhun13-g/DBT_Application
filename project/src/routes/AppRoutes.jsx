@@ -11,6 +11,14 @@ import CampBooking from '../pages/CampBooking/CampBooking';
 import Login from '../pages/Login/Login';
 import Signup from '../pages/Signup/Signup';
 import AdminDashboard from '../pages/AdminDashboard/AdminDashboard';
+import UserManagement from '../pages/AdminDashboard/UserManagement';
+import CampManagement from '../pages/AdminDashboard/CampManagement';
+import AdminAnalytics from '../pages/AdminDashboard/AdminAnalytics';
+import AdminSettings from '../pages/AdminSettings/AdminSettings';
+import AdminOverview from '../pages/AdminDashboard/AdminOverview';
+import Notifications from '../pages/Notifications/Notifications';
+import Profile from '../pages/Profile/Profile';
+import AdminLayout from '../layouts/AdminLayout';
 
 // Route Protection Component
 const ProtectedRoute = ({ children, adminOnly = false }) => {
@@ -42,11 +50,13 @@ const AppRoutes = () => {
       <Route path="/seeding-guide" element={<SeedingGuide />} />
       <Route path="/awareness" element={<Awareness />} />
       <Route path="/camp-booking" element={<CampBooking />} />
+      <Route path="/notifications" element={<Notifications />} />
+      <Route path="/profile" element={<Profile />} />
       
       {/* Auth Routes */}
       <Route 
         path="/login" 
-        element={user ? <Navigate to="/" replace /> : <Login />} 
+        element={user ? <Navigate to={user.role === 'admin' ? '/admin' : '/'} replace /> : <Login />} 
       />
       <Route 
         path="/signup" 
@@ -58,10 +68,16 @@ const AppRoutes = () => {
         path="/admin"
         element={
           <ProtectedRoute adminOnly>
-            <AdminDashboard />
+            <AdminLayout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<AdminOverview />} />
+        <Route path="users" element={<UserManagement />} />
+        <Route path="camps" element={<CampManagement />} />
+        <Route path="analytics" element={<AdminAnalytics />} />
+        <Route path="settings" element={<AdminSettings />} />
+      </Route>
 
       {/* Catch-all route */}
       <Route path="*" element={<Navigate to="/" replace />} />

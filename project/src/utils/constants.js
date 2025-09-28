@@ -37,3 +37,25 @@ export const TIME_SLOTS = [
   '03:00 PM - 04:00 PM',
   '04:00 PM - 05:00 PM'
 ];
+
+export const NOTIFICATION_TYPES = {
+  SUCCESS: 'success',
+  ERROR: 'error',
+  WARNING: 'warning',
+  INFO: 'info'
+};
+
+export const BOOKING_STATUS = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  CANCELLED: 'CANCELLED',
+  COMPLETED: 'COMPLETED'
+};
+
+export const ADMIN_PERMISSIONS = {
+  VIEW_USERS: 'view_users',
+  EDIT_USERS: 'edit_users',
+  DELETE_USERS: 'delete_users',
+  MANAGE_CAMPS: 'manage_camps',
+  VIEW_ANALYTICS: 'view_analytics'
+};

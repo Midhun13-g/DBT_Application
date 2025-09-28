@@ -8,9 +8,12 @@ import {
   XCircle, 
   FileText, 
   Calendar,
-  ArrowRight
+  ArrowRight,
+  RefreshCw,
+  History
 } from 'lucide-react';
-import Card, { StatusCard } from '../../components/Card/Card';
+import Card from '../../components/Card/Card';
+import StatusCard from '../../components/StatusCard/StatusCard';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
 import { useDBTStatus } from '../../hooks/useDBTStatus';
@@ -27,6 +30,8 @@ const DBTStatusCheck = () => {
     applicationId: ''
   });
   const [errors, setErrors] = useState({});
+  const [statusHistory, setStatusHistory] = useState([]);
+  const [showHistory, setShowHistory] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -237,8 +242,9 @@ const DBTStatusCheck = () => {
                   status={currentStatus.status}
                   title={getStatusTitle(currentStatus.status)}
                   description={getStatusMessage(currentStatus.status)}
-                  icon={getStatusIcon(currentStatus.status)}
-                  color={getStatusColor(currentStatus.status)}
+                  lastChecked={currentStatus.checkedAt}
+                  onRecheck={() => handleSubmit({ preventDefault: () => {} })}
+                  onGetHelp={() => navigate('/camp-booking')}
                 />
 
                 {/* Action Buttons */}
