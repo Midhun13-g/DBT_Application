@@ -15,6 +15,7 @@ import {
 import Card, { MetricCard } from '../../components/Card/Card';
 import Button from '../../components/Button/Button';
 import DBTQuiz from '../../components/Quiz/DBTQuiz';
+import Chatbot from '../../components/Chatbot/Chatbot';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -166,126 +167,44 @@ const Home = () => {
         </div>
       </section>
 
-      {/* DBT vs Aadhaar Seeding Section */}
-      <section className="px-4 py-16 sm:px-6 lg:px-8 bg-white">
-        <div className="mx-auto max-w-7xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              DBT vs Aadhaar Seeding: What's the Difference?
+      {/* DBT Aadhaar Seeding Section */}
+      <section className="px-4 py-12 sm:px-6 lg:px-8 bg-white">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              What is DBT Aadhaar Seeding?
             </h2>
-            <p className="text-xl text-gray-600">
-              Understanding the key differences between these two important processes
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* DBT Card */}
-            <Card className="border-l-4 border-blue-500">
-              <div className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="bg-blue-100 p-3 rounded-full mr-4">
-                    <CheckCircle className="h-8 w-8 text-blue-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900">Direct Benefit Transfer (DBT)</h3>
+          <Card className="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200">
+            <div className="p-8">
+              <div className="flex items-start space-x-4">
+                <div className="bg-blue-100 p-3 rounded-full">
+                  <Shield className="h-8 w-8 text-blue-600" />
                 </div>
-                
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">What is DBT?</h4>
-                    <p className="text-gray-600">A system that transfers government subsidies and benefits directly to beneficiaries' bank accounts, eliminating middlemen.</p>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Key Features:</h4>
-                    <ul className="text-gray-600 space-y-1">
-                      <li>• Direct money transfer to bank accounts</li>
-                      <li>• Eliminates corruption and leakages</li>
-                      <li>• Faster benefit delivery</li>
-                      <li>• Transparent process</li>
-                      <li>• Real-time tracking</li>
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Examples:</h4>
-                    <p className="text-gray-600">LPG subsidy, MGNREGA wages, PM-KISAN, scholarships, pensions</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            {/* Aadhaar Seeding Card */}
-            <Card className="border-l-4 border-green-500">
-              <div className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="bg-green-100 p-3 rounded-full mr-4">
-                    <Shield className="h-8 w-8 text-green-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900">Aadhaar Seeding</h3>
-                </div>
-                
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">What is Aadhaar Seeding?</h4>
-                    <p className="text-gray-600">The process of linking your Aadhaar number with your bank account to enable DBT and other services.</p>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Key Features:</h4>
-                    <ul className="text-gray-600 space-y-1">
-                      <li>• Links Aadhaar with bank account</li>
-                      <li>• One-time setup process</li>
-                      <li>• Enables unique identification</li>
-                      <li>• Prerequisite for DBT</li>
-                      <li>• Prevents duplicate accounts</li>
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">How to do it:</h4>
-                    <p className="text-gray-600">Visit your bank branch with Aadhaar card and bank passbook, or use online banking</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Relationship Explanation */}
-          <div className="mt-12">
-            <Card className="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200">
-              <div className="p-8 text-center">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">How They Work Together</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                  <div className="text-center">
-                    <div className="bg-green-100 p-4 rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-green-600">1</span>
-                    </div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Aadhaar Seeding</h4>
-                    <p className="text-gray-600">Link your Aadhaar with bank account</p>
-                  </div>
-                  
-                  <div className="text-center">
-                    <ArrowRight className="h-8 w-8 text-blue-500 mx-auto mb-4" />
-                    <p className="text-sm text-gray-500">Enables</p>
-                  </div>
-                  
-                  <div className="text-center">
-                    <div className="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-blue-600">2</span>
-                    </div>
-                    <h4 className="font-semibold text-gray-900 mb-2">DBT Benefits</h4>
-                    <p className="text-gray-600">Receive government benefits directly</p>
-                  </div>
-                </div>
-                
-                <div className="mt-8 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                  <p className="text-yellow-800">
-                    <strong>Remember:</strong> Aadhaar seeding is the foundation that enables DBT. Without seeding, you cannot receive DBT benefits!
+                <div className="flex-1">
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    DBT Aadhaar seeding is the process of linking your Aadhaar number to a bank account to receive government benefits and subsidies directly, eliminating middlemen and ensuring funds reach the intended beneficiary efficiently. This linkage happens through the National Payments Corporation of India (NPCI) mapper and is required by law for many government schemes, as it enhances security and reduces delays in fund disbursement.
                   </p>
                 </div>
               </div>
-            </Card>
-          </div>
+              
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="text-center p-4 bg-white rounded-lg">
+                  <CheckCircle className="h-6 w-6 text-green-600 mx-auto mb-2" />
+                  <h4 className="font-semibold text-gray-900 text-sm">Eliminates Middlemen</h4>
+                </div>
+                <div className="text-center p-4 bg-white rounded-lg">
+                  <Shield className="h-6 w-6 text-blue-600 mx-auto mb-2" />
+                  <h4 className="font-semibold text-gray-900 text-sm">Enhanced Security</h4>
+                </div>
+                <div className="text-center p-4 bg-white rounded-lg">
+                  <Zap className="h-6 w-6 text-purple-600 mx-auto mb-2" />
+                  <h4 className="font-semibold text-gray-900 text-sm">Reduces Delays</h4>
+                </div>
+              </div>
+            </div>
+          </Card>
         </div>
       </section>
 
@@ -504,6 +423,9 @@ const Home = () => {
           </Card>
         </div>
       </section>
+      
+      {/* Chatbot */}
+      <Chatbot />
     </div>
   );
 };
