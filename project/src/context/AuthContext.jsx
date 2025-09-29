@@ -31,8 +31,9 @@ export const AuthProvider = ({ children }) => {
       const userData = {
         id: 1,
         email,
-        name: email === 'admin@dbt.gov.in' ? 'Admin User' : 'Regular User',
-        role: email === 'admin@dbt.gov.in' ? 'admin' : 'user'
+        name: email === 'admin@dbt.gov.in' ? 'Admin User' : 'John Doe',
+        role: email === 'admin@dbt.gov.in' ? 'admin' : 'user',
+        phone: email === 'admin@dbt.gov.in' ? '9876543210' : '9876543211'
       };
       
       setUser(userData);
@@ -74,11 +75,17 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('dbt_user');
   };
 
+  const updateUser = (userData) => {
+    setUser(userData);
+    localStorage.setItem('dbt_user', JSON.stringify(userData));
+  };
+
   const value = {
     user,
     login,
     signup,
     logout,
+    updateUser,
     loading,
     isAdmin: user?.role === 'admin'
   };

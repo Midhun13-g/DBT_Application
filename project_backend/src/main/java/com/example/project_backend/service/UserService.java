@@ -96,4 +96,37 @@ public class UserService {
     private String generateBookingReference() {
         return "BK" + System.currentTimeMillis();
     }
+
+    public Map<String, Object> updateProfile(Long userId, Map<String, String> profileData) {
+        Map<String, Object> result = new HashMap<>();
+        
+        // Mock profile update - in real app, update database
+        result.put("success", true);
+        result.put("message", "Profile updated successfully");
+        result.put("updatedData", profileData);
+        
+        return result;
+    }
+
+    public Map<String, Object> getUserProfile(Long userId) {
+        Map<String, Object> profile = new HashMap<>();
+        
+        // Mock profile data - in real app, fetch from database
+        if (userId == 1) {
+            profile.put("name", "Admin User");
+            profile.put("email", "admin@dbt.gov.in");
+            profile.put("phone", "9876543210");
+        } else {
+            profile.put("name", "John Doe");
+            profile.put("email", "user@example.com");
+            profile.put("phone", "9876543211");
+        }
+        
+        profile.put("aadhaarLast4", "****");
+        profile.put("bankName", "State Bank of India");
+        profile.put("accountNumber", "****1234");
+        profile.put("dbtStatus", "ENABLED");
+        
+        return profile;
+    }
 }

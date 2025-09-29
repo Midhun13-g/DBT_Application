@@ -27,7 +27,7 @@ public class AuthService {
             response.put("token", "mock-admin-token");
             response.put("redirectTo", "/admin");
         } else if ("user@example.com".equals(email) && "password".equals(password)) {
-            response.put("user", createMockUser(email, "Regular User", User.Role.USER));
+            response.put("user", createMockUser(email, "John Doe", User.Role.USER));
             response.put("token", "mock-user-token");
             response.put("redirectTo", "/");
         } else {
@@ -58,7 +58,7 @@ public class AuthService {
         if ("mock-admin-token".equals(token.replace("Bearer ", ""))) {
             return createMockUser("admin@dbt.gov.in", "Admin User", User.Role.ADMIN);
         } else if ("mock-user-token".equals(token.replace("Bearer ", ""))) {
-            return createMockUser("user@example.com", "Regular User", User.Role.USER);
+            return createMockUser("user@example.com", "John Doe", User.Role.USER);
         }
         
         throw new RuntimeException("Invalid token");

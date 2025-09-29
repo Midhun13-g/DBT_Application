@@ -5,6 +5,7 @@ import com.example.project_backend.entity.CampBooking;
 import com.example.project_backend.repository.UserRepository;
 import com.example.project_backend.repository.CampBookingRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,10 @@ public class AdminService {
         }
     }
 
+    public Page<CampBooking> getBookingsByUser(Long userId, Pageable pageable) {
+        return campBookingRepository.findByUserId(userId, pageable);
+    }
+
     public User updateUserStatus(Long userId, User.DBTStatus newStatus) {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new RuntimeException("User not found"));
@@ -78,5 +83,25 @@ public class AdminService {
         booking.setStatus(newStatus);
         
         return campBookingRepository.save(booking);
+    }
+
+    @Transactional
+    public void deleteUser(Long userId) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Delete user's bookings first
+        campBookingRepository.deleteByUserId(userId);
+
+        // Delete user
+        userRepository.delete(user);
+    }
+
+    @Transactional
+    public void deleteBooking(Long bookingId) {
+        CampBooking booking = campBookingRepository.findById(bookingId)
+            .orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        campBookingRepository.delete(booking);
     }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, Download, Upload, Eye, Edit, Trash2, UserPlus, Mail, Phone } from 'lucide-react';
+import { Search, Filter, Download, Upload, Eye, Edit, Trash2, UserPlus, Mail, Phone, AlertTriangle } from 'lucide-react';
 import Card from '../../components/Card/Card';
 import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
@@ -16,23 +16,55 @@ const UserManagement = () => {
   const [showUserModal, setShowUserModal] = useState(false);
   const [showBulkActions, setShowBulkActions] = useState(false);
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
 
-  // Mock data - replace with API call
   useEffect(() => {
-    const mockUsers = Array.from({ length: 50 }, (_, index) => ({
-      id: index + 1,
-      name: `User ${index + 1}`,
-      email: `user${index + 1}@example.com`,
-      phone: `98765${String(index + 1).padStart(5, '0')}`,
-      aadhaarLast4: String(Math.floor(Math.random() * 10000)).padStart(4, '0'),
-      applicationId: `APP${String(index + 1).padStart(8, '0')}`,
-      status: ['ENABLED', 'LINKED_NOT_ENABLED', 'NOT_LINKED'][index % 3],
-      lastChecked: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000),
-      bankName: ['SBI', 'HDFC', 'ICICI', 'Axis Bank', 'PNB'][index % 5],
-      createdAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000),
-      isActive: Math.random() > 0.1
-    }));
-    setUsers(mockUsers);
+    const realUsers = [
+      {
+        id: 1,
+        name: 'Admin User',
+        email: 'admin@dbt.gov.in',
+        phone: '9876543210',
+        aadhaarLast4: '1234',
+        applicationId: 'APP00000001',
+        status: 'ENABLED',
+        lastChecked: new Date(),
+        bankName: 'SBI',
+        createdAt: new Date('2024-01-01'),
+        isActive: true,
+        role: 'ADMIN'
+      },
+      {
+        id: 2,
+        name: 'John Doe',
+        email: 'user@example.com',
+        phone: '9876543211',
+        aadhaarLast4: '5678',
+        applicationId: 'APP00000002',
+        status: 'LINKED_NOT_ENABLED',
+        lastChecked: new Date(),
+        bankName: 'HDFC',
+        createdAt: new Date('2024-01-02'),
+        isActive: true,
+        role: 'USER'
+      },
+      ...Array.from({ length: 20 }, (_, index) => ({
+        id: index + 3,
+        name: `User ${index + 3}`,
+        email: `user${index + 3}@example.com`,
+        phone: `98765${String(index + 3).padStart(5, '0')}`,
+        aadhaarLast4: String(Math.floor(Math.random() * 10000)).padStart(4, '0'),
+        applicationId: `APP${String(index + 3).padStart(8, '0')}`,
+        status: ['ENABLED', 'LINKED_NOT_ENABLED', 'NOT_LINKED'][index % 3],
+        lastChecked: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000),
+        bankName: ['SBI', 'HDFC', 'ICICI', 'Axis Bank', 'PNB'][index % 5],
+        createdAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000),
+        isActive: Math.random() > 0.1,
+        role: 'USER'
+      }))
+    ];
+    setUsers(realUsers);
   }, []);
 
   const filteredUsers = users.filter(user => {
@@ -49,17 +81,24 @@ const UserManagement = () => {
   );
 
   const getStatusBadge = (status) => {
-    const badges = {
-      'ENABLED': { color: 'green', text: 'Enabled' },
-      'LINKED_NOT_ENABLED': { color: 'yellow', text: 'Linked' },
-      'NOT_LINKED': { color: 'red', text: 'Not Linked' }
+    const badgeClasses = {
+      'ENABLED': 'bg-green-100 text-green-800',
+      'LINKED_NOT_ENABLED': 'bg-yellow-100 text-yellow-800',
+      'NOT_LINKED': 'bg-red-100 text-red-800'
     };
     
-    const badge = badges[status] || { color: 'gray', text: 'Unknown' };
+    const badgeText = {
+      'ENABLED': 'Enabled',
+      'LINKED_NOT_ENABLED': 'Linked',
+      'NOT_LINKED': 'Not Linked'
+    };
+    
+    const classes = badgeClasses[status] || 'bg-gray-100 text-gray-800';
+    const text = badgeText[status] || 'Unknown';
     
     return (
-      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-${badge.color}-100 text-${badge.color}-800`}>
-        {badge.text}
+      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${classes}`}>
+        {text}
       </span>
     );
   };
@@ -101,6 +140,30 @@ const UserManagement = () => {
     window.URL.revokeObjectURL(url);
   };
 
+  const handleDeleteUser = async () => {
+    if (!userToDelete) return;
+    
+    try {
+      // API call to delete user
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      
+      // Remove user from local state
+      setUsers(prev => prev.filter(user => user.id !== userToDelete.id));
+      
+      setShowDeleteModal(false);
+      setUserToDelete(null);
+      alert('User deleted successfully!');
+    } catch (error) {
+      console.error('Failed to delete user:', error);
+      alert('Failed to delete user. Please try again.');
+    }
+  };
+
+  const confirmDeleteUser = (user) => {
+    setUserToDelete(user);
+    setShowDeleteModal(true);
+  };
+
   return (
     <div className="space-y-6">
       {/* Header Actions */}
@@ -132,12 +195,26 @@ const UserManagement = () => {
 
           <div className="flex space-x-3">
             {selectedUsers.length > 0 && (
-              <Button
-                variant="outline"
-                onClick={() => setShowBulkActions(true)}
-              >
-                Bulk Actions ({selectedUsers.length})
-              </Button>
+              <div className="flex space-x-2">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowBulkActions(true)}
+                >
+                  Bulk Actions ({selectedUsers.length})
+                </Button>
+                <Button
+                  className="bg-green-600 hover:bg-green-700"
+                  onClick={() => handleBulkStatusUpdate('ENABLED')}
+                >
+                  Enable Selected
+                </Button>
+                <Button
+                  className="bg-red-600 hover:bg-red-700"
+                  onClick={() => console.log('Bulk delete:', selectedUsers)}
+                >
+                  Delete Selected
+                </Button>
+              </div>
             )}
             <Button variant="outline" icon={Upload}>
               Import
@@ -203,7 +280,14 @@ const UserManagement = () => {
                   </td>
                   <td className="px-6 py-4">
                     <div>
-                      <div className="text-sm font-medium text-gray-900">{user.name}</div>
+                      <div className="flex items-center space-x-2">
+                        <div className="text-sm font-medium text-gray-900">{user.name}</div>
+                        {user.role === 'ADMIN' && (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                            Admin
+                          </span>
+                        )}
+                      </div>
                       <div className="text-sm text-gray-500">ID: {user.applicationId}</div>
                       <div className="text-sm text-gray-500">****{user.aadhaarLast4}</div>
                     </div>
@@ -244,8 +328,13 @@ const UserManagement = () => {
                       <button className="text-green-600 hover:text-green-900">
                         <Edit className="h-4 w-4" />
                       </button>
-                      <button className="text-red-600 hover:text-red-900">
-                        <Trash2 className="h-4 w-4" />
+                      <button 
+                        className="text-red-600 hover:text-red-900"
+                        onClick={() => confirmDeleteUser(user)}
+                        disabled={user.role === 'ADMIN'}
+                        title={user.role === 'ADMIN' ? 'Cannot delete admin user' : 'Delete user'}
+                      >
+                        <Trash2 className={`h-4 w-4 ${user.role === 'ADMIN' ? 'opacity-50 cursor-not-allowed' : ''}`} />
                       </button>
                     </div>
                   </td>
@@ -316,6 +405,46 @@ const UserManagement = () => {
             </Button>
           </div>
         </div>
+      </Modal>
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        title="Confirm Delete"
+        size="sm"
+      >
+        {userToDelete && (
+          <div className="space-y-4">
+            <div className="flex items-center space-x-3">
+              <div className="flex-shrink-0">
+                <AlertTriangle className="h-8 w-8 text-red-500" />
+              </div>
+              <div>
+                <h3 className="text-lg font-medium text-gray-900">Delete User</h3>
+                <p className="text-sm text-gray-600">
+                  Are you sure you want to delete <strong>{userToDelete.name}</strong>? 
+                  This action cannot be undone and will also delete all associated bookings.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex justify-end space-x-3">
+              <Button 
+                variant="outline" 
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Cancel
+              </Button>
+              <Button 
+                onClick={handleDeleteUser}
+                className="bg-red-600 hover:bg-red-700 text-white"
+              >
+                Delete User
+              </Button>
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
   );

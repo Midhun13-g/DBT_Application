@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 @CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000"})
 public class UserController {
@@ -43,5 +43,20 @@ public class UserController {
     public ResponseEntity<List<Map<String, Object>>> getUserNotifications(@PathVariable Long userId) {
         List<Map<String, Object>> notifications = userService.getUserNotifications(userId);
         return ResponseEntity.ok(notifications);
+    }
+
+    @PutMapping("/{userId}/profile")
+    public ResponseEntity<Map<String, Object>> updateProfile(
+            @PathVariable Long userId,
+            @RequestBody Map<String, String> profileData) {
+        
+        Map<String, Object> result = userService.updateProfile(userId, profileData);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/{userId}/profile")
+    public ResponseEntity<Map<String, Object>> getUserProfile(@PathVariable Long userId) {
+        Map<String, Object> profile = userService.getUserProfile(userId);
+        return ResponseEntity.ok(profile);
     }
 }

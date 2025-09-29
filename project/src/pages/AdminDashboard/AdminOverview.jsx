@@ -73,6 +73,27 @@ const AdminOverview = () => {
 
   return (
     <div className="space-y-6">
+      {/* Quick Actions */}
+      <Card>
+        <div className="flex flex-wrap gap-3">
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            Add New User
+          </button>
+          <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+            Export Data
+          </button>
+          <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+            Generate Report
+          </button>
+          <button className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
+            System Settings
+          </button>
+          <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+            Backup Data
+          </button>
+        </div>
+      </Card>
+
       {/* Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {metrics.map((metric, index) => (

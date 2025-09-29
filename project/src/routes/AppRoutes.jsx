@@ -16,8 +16,11 @@ import CampManagement from '../pages/AdminDashboard/CampManagement';
 import AdminAnalytics from '../pages/AdminDashboard/AdminAnalytics';
 import AdminSettings from '../pages/AdminSettings/AdminSettings';
 import AdminOverview from '../pages/AdminDashboard/AdminOverview';
+import AwarenessManagement from '../pages/AdminDashboard/AwarenessManagement/AwarenessManagement';
+import AccessLogs from '../pages/AdminDashboard/AccessLogs/AccessLogs';
 import Notifications from '../pages/Notifications/Notifications';
 import Profile from '../pages/Profile/Profile';
+import SchemeDetails from '../pages/Schemes/SchemeDetails';
 import AdminLayout from '../layouts/AdminLayout';
 
 // Route Protection Component
@@ -52,6 +55,7 @@ const AppRoutes = () => {
       <Route path="/camp-booking" element={<CampBooking />} />
       <Route path="/notifications" element={<Notifications />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/schemes/:schemeId" element={<SchemeDetails />} />
       
       {/* Auth Routes */}
       <Route 
@@ -76,6 +80,8 @@ const AppRoutes = () => {
         <Route path="users" element={<UserManagement />} />
         <Route path="camps" element={<CampManagement />} />
         <Route path="analytics" element={<AdminAnalytics />} />
+        <Route path="awareness" element={<AwarenessManagement />} />
+        <Route path="logs" element={<AccessLogs />} />
         <Route path="settings" element={<AdminSettings />} />
       </Route>
 
