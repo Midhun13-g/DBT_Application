@@ -30,6 +30,10 @@ public class SecurityConfig {
                 .requestMatchers("/api/test/**").permitAll()
                 .requestMatchers("/api/user/**").permitAll()
                 .requestMatchers("/api/admin/**").permitAll()
+                .requestMatchers("/api/notices/**").permitAll()
+                .requestMatchers("/api/school-activities/**").permitAll()
+                .requestMatchers("/api/knowledge-hub/**").permitAll()
+                .requestMatchers("/api/scholarships/**").permitAll()
                 .anyRequest().permitAll()
             );
 

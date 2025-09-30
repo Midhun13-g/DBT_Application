@@ -21,6 +21,12 @@ import AccessLogs from '../pages/AdminDashboard/AccessLogs/AccessLogs';
 import Notifications from '../pages/Notifications/Notifications';
 import Profile from '../pages/Profile/Profile';
 import SchemeDetails from '../pages/Schemes/SchemeDetails';
+import NoticeBoard from '../pages/NoticeBoard/NoticeBoard';
+import SchoolActivities from '../pages/SchoolActivities/SchoolActivities';
+import KnowledgeHub from '../pages/KnowledgeHub/KnowledgeHub';
+import Events from '../pages/Events/Events';
+import AdminEvents from '../pages/AdminEvents/AdminEvents';
+
 import AdminLayout from '../layouts/AdminLayout';
 
 // Route Protection Component
@@ -56,6 +62,11 @@ const AppRoutes = () => {
       <Route path="/notifications" element={<Notifications />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/schemes/:schemeId" element={<SchemeDetails />} />
+      <Route path="/notice-board" element={<NoticeBoard />} />
+      <Route path="/school-activities" element={<SchoolActivities />} />
+      <Route path="/knowledge-hub" element={<KnowledgeHub />} />
+      <Route path="/events" element={<Events />} />
+
       
       {/* Auth Routes */}
       <Route 
@@ -81,6 +92,9 @@ const AppRoutes = () => {
         <Route path="camps" element={<CampManagement />} />
         <Route path="analytics" element={<AdminAnalytics />} />
         <Route path="awareness" element={<AwarenessManagement />} />
+        <Route path="school-activities" element={<SchoolActivities />} />
+        <Route path="notices" element={<NoticeBoard />} />
+        <Route path="events" element={<AdminEvents />} />
         <Route path="logs" element={<AccessLogs />} />
         <Route path="settings" element={<AdminSettings />} />
       </Route>

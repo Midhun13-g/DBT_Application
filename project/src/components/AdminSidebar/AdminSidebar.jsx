@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { BarChart3, Users, MapPin, Settings, Home, BookOpen, Activity } from 'lucide-react';
+import { BarChart3, Users, MapPin, Settings, Home, BookOpen, Activity, School, Bell, Calendar } from 'lucide-react';
 
 const AdminSidebar = () => {
   const navigation = [
@@ -9,6 +9,9 @@ const AdminSidebar = () => {
     { name: 'Camp Management', href: '/admin/camps', icon: MapPin },
     { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
     { name: 'Awareness Materials', href: '/admin/awareness', icon: BookOpen },
+    { name: 'School Activities', href: '/admin/school-activities', icon: School },
+    { name: 'Notice Board', href: '/admin/notices', icon: Bell },
+    { name: 'Events', href: '/admin/events', icon: Calendar },
     { name: 'Access Logs', href: '/admin/logs', icon: Activity },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
   ];

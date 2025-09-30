@@ -10,15 +10,19 @@ import {
   Shield,
   Globe,
   Zap,
-  Brain
+  Brain,
+  AlertCircle
 } from 'lucide-react';
 import Card, { MetricCard } from '../../components/Card/Card';
 import Button from '../../components/Button/Button';
 import DBTQuiz from '../../components/Quiz/DBTQuiz';
 import Chatbot from '../../components/Chatbot/Chatbot';
+import RoleDashboard from '../../components/RoleDashboard/RoleDashboard';
+import { useAuth } from '../../hooks/useAuth';
 
 const Home = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const [showQuiz, setShowQuiz] = useState(false);
 
   const getSchemeId = (title) => {
@@ -35,32 +39,25 @@ const Home = () => {
 
   const quickLinks = [
     {
-      title: t('home.checkStatus'),
-      description: 'Verify your DBT linking status',
+      title: 'Notice Board',
+      description: 'Latest announcements and updates',
       icon: CheckCircle,
-      href: '/dbt-check',
+      href: '/notice-board',
       color: 'blue'
     },
     {
-      title: t('home.seedingGuide'),
-      description: 'Step-by-step account linking guide',
-      icon: BookOpen,
-      href: '/seeding-guide',
+      title: 'School Activities',
+      description: 'Workshops, meetings, and events',
+      icon: Users,
+      href: '/school-activities',
       color: 'green'
     },
     {
-      title: t('home.awareness'),
-      description: 'Learn about DBT benefits',
-      icon: Users,
-      href: '/awareness',
-      color: 'purple'
-    },
-    {
-      title: t('home.bookCamp'),
-      description: 'Get expert assistance',
+      title: 'Community Events',
+      description: 'Upcoming events and activities',
       icon: Calendar,
-      href: '/camp-booking',
-      color: 'orange'
+      href: '/events',
+      color: 'purple'
     }
   ];
 
@@ -171,40 +168,109 @@ const Home = () => {
       <section className="px-4 py-12 sm:px-6 lg:px-8 bg-white">
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
               What is DBT Aadhaar Seeding?
             </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              A simple process to link your Aadhaar with your bank account for direct benefit transfer
+            </p>
           </div>
 
-          <Card className="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200">
-            <div className="p-8">
-              <div className="flex items-start space-x-4">
-                <div className="bg-blue-100 p-3 rounded-full">
-                  <Shield className="h-8 w-8 text-blue-600" />
+          <div className="mb-8">
+            <img 
+              src="https://soft-techsolutions.com/assets/img/Banner-of-aadhaar-deeding.png" 
+              alt="DBT Aadhaar Seeding Process" 
+              className="w-full rounded-lg"
+            />
+          </div>
+
+          {/* Simple Content Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <Card className="p-4 text-center">
+              <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Users className="h-6 w-6 text-blue-600" />
+              </div>
+              <h4 className="font-semibold text-gray-900 mb-2">Link Aadhaar</h4>
+              <p className="text-gray-600 text-sm">Connect your Aadhaar with bank account</p>
+            </Card>
+            
+            <Card className="p-4 text-center">
+              <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                <CheckCircle className="h-6 w-6 text-green-600" />
+              </div>
+              <h4 className="font-semibold text-gray-900 mb-2">Direct Transfer</h4>
+              <p className="text-gray-600 text-sm">Get benefits directly in your account</p>
+            </Card>
+            
+            <Card className="p-4 text-center">
+              <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Zap className="h-6 w-6 text-purple-600" />
+              </div>
+              <h4 className="font-semibold text-gray-900 mb-2">Secure & Fast</h4>
+              <p className="text-gray-600 text-sm">Safe transfers within 24-48 hours</p>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Public Awareness Cards */}
+      <section className="px-4 py-16 sm:px-6 lg:px-8 bg-white">
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Latest Updates & Announcements
+            </h2>
+            <p className="text-xl text-gray-600">
+              Stay informed with the latest news and important notices
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <Card className="bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500">
+              <div className="flex items-start space-x-3">
+                <div className="bg-blue-500 p-2 rounded-full">
+                  <Calendar className="h-5 w-5 text-white" />
                 </div>
-                <div className="flex-1">
-                  <p className="text-lg text-gray-700 leading-relaxed">
-                    DBT Aadhaar seeding is the process of linking your Aadhaar number to a bank account to receive government benefits and subsidies directly, eliminating middlemen and ensuring funds reach the intended beneficiary efficiently. This linkage happens through the National Payments Corporation of India (NPCI) mapper and is required by law for many government schemes, as it enhances security and reduces delays in fund disbursement.
-                  </p>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Upcoming Workshop</h3>
+                  <p className="text-sm text-gray-600 mb-2">DBT Awareness Camp - March 15, 2024</p>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    High Priority
+                  </span>
                 </div>
               </div>
-              
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="text-center p-4 bg-white rounded-lg">
-                  <CheckCircle className="h-6 w-6 text-green-600 mx-auto mb-2" />
-                  <h4 className="font-semibold text-gray-900 text-sm">Eliminates Middlemen</h4>
+            </Card>
+
+            <Card className="bg-gradient-to-r from-green-50 to-green-100 border-l-4 border-green-500">
+              <div className="flex items-start space-x-3">
+                <div className="bg-green-500 p-2 rounded-full">
+                  <CheckCircle className="h-5 w-5 text-white" />
                 </div>
-                <div className="text-center p-4 bg-white rounded-lg">
-                  <Shield className="h-6 w-6 text-blue-600 mx-auto mb-2" />
-                  <h4 className="font-semibold text-gray-900 text-sm">Enhanced Security</h4>
-                </div>
-                <div className="text-center p-4 bg-white rounded-lg">
-                  <Zap className="h-6 w-6 text-purple-600 mx-auto mb-2" />
-                  <h4 className="font-semibold text-gray-900 text-sm">Reduces Delays</h4>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">New Scholarship Scheme</h3>
+                  <p className="text-sm text-gray-600 mb-2">Applications open for Merit Scholarship 2024</p>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    New
+                  </span>
                 </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+
+            <Card className="bg-gradient-to-r from-purple-50 to-purple-100 border-l-4 border-purple-500">
+              <div className="flex items-start space-x-3">
+                <div className="bg-purple-500 p-2 rounded-full">
+                  <AlertCircle className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Important Notice</h3>
+                  <p className="text-sm text-gray-600 mb-2">Deadline extension for DBT linking - March 31</p>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                    Urgent
+                  </span>
+                </div>
+              </div>
+            </Card>
+          </div>
         </div>
       </section>
 
@@ -213,16 +279,25 @@ const Home = () => {
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {t('home.quickLinks')}
+              Quick Access Portal
             </h2>
             <p className="text-xl text-gray-600">
-              {t('home.welcomeMessage')}
+              Access all services and information in one place
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {quickLinks.map((link) => {
               const IconComponent = link.icon;
+              const colorClasses = {
+                blue: 'border-blue-500 bg-blue-100 text-blue-600 group-hover:bg-blue-200',
+                green: 'border-green-500 bg-green-100 text-green-600 group-hover:bg-green-200',
+                purple: 'border-purple-500 bg-purple-100 text-purple-600 group-hover:bg-purple-200',
+                orange: 'border-orange-500 bg-orange-100 text-orange-600 group-hover:bg-orange-200',
+                indigo: 'border-indigo-500 bg-indigo-100 text-indigo-600 group-hover:bg-indigo-200',
+                pink: 'border-pink-500 bg-pink-100 text-pink-600 group-hover:bg-pink-200'
+              };
+              
               return (
                 <Link 
                   key={link.title} 
@@ -231,11 +306,11 @@ const Home = () => {
                 >
                   <Card 
                     hover 
-                    className="h-full border-t-4 border-blue-500 group-hover:border-blue-600 transition-all duration-200"
+                    className={`h-full border-t-4 ${colorClasses[link.color].split(' ')[0]} group-hover:shadow-lg transition-all duration-200`}
                   >
                     <div className="text-center">
-                      <div className="bg-blue-100 group-hover:bg-blue-200 transition-colors duration-200 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <IconComponent className="h-8 w-8 text-blue-600" />
+                      <div className={`${colorClasses[link.color]} transition-colors duration-200 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
+                        <IconComponent className="h-8 w-8" />
                       </div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-2">
                         {link.title}
@@ -243,8 +318,8 @@ const Home = () => {
                       <p className="text-gray-600 mb-4">
                         {link.description}
                       </p>
-                      <div className="flex items-center justify-center text-blue-600 group-hover:text-blue-700">
-                        <span className="text-sm font-medium">Learn more</span>
+                      <div className={`flex items-center justify-center ${colorClasses[link.color].split(' ')[2]} group-hover:${colorClasses[link.color].split(' ')[2].replace('600', '700')}`}>
+                        <span className="text-sm font-medium">Access Now</span>
                         <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>

@@ -75,7 +75,7 @@ public class User {
     private List<DBTStatusHistory> dbtStatusHistory;
 
     public enum Role {
-        USER, ADMIN, SUPER_ADMIN
+        USER, ADMIN, SUPER_ADMIN, STUDENT, PARENT, SCHOOL_COMMITTEE, GRAM_PANCHAYAT
     }
 
     public enum DBTStatus {
