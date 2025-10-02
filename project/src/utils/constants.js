@@ -15,7 +15,13 @@ export const USER_ROLES = {
 export const LANGUAGES = {
   en: 'English',
   hi: 'हिंदी',
-  ta: 'தமிழ்'
+  ta: 'தமிழ்',
+  te: 'తెలుగు',
+  kn: 'ಕನ್ನಡ',
+  ml: 'മലയാളം',
+  bn: 'বাংলা',
+  gu: 'ગુજરાતી',
+  mr: 'मराठी'
 };
 
 export const CAMP_LOCATIONS = [
