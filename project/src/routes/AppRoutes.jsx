@@ -21,11 +21,14 @@ import AccessLogs from '../pages/AdminDashboard/AccessLogs/AccessLogs';
 import Notifications from '../pages/Notifications/Notifications';
 import Profile from '../pages/Profile/Profile';
 import SchemeDetails from '../pages/Schemes/SchemeDetails';
-import NoticeBoard from '../pages/NoticeBoard/NoticeBoard';
+import Events from '../pages/Events/Events';
 import SchoolActivities from '../pages/SchoolActivities/SchoolActivities';
 import KnowledgeHub from '../pages/KnowledgeHub/KnowledgeHub';
-import Events from '../pages/Events/Events';
+import CommunityEvents from '../pages/CommunityEvents/CommunityEvents';
 import AdminEvents from '../pages/AdminEvents/AdminEvents';
+import AdminNoticeBoard from '../pages/AdminNoticeBoard/AdminNoticeBoard';
+import NoticeTest from '../pages/NoticeTest/NoticeTest';
+import NoticeBoard from '../pages/NoticeBoard/NoticeBoard';
 
 import AdminLayout from '../layouts/AdminLayout';
 
@@ -65,7 +68,8 @@ const AppRoutes = () => {
       <Route path="/notice-board" element={<NoticeBoard />} />
       <Route path="/school-activities" element={<SchoolActivities />} />
       <Route path="/knowledge-hub" element={<KnowledgeHub />} />
-      <Route path="/events" element={<Events />} />
+      <Route path="/events" element={<CommunityEvents />} />
+      <Route path="/notice-test" element={<NoticeTest />} />
 
       
       {/* Auth Routes */}
@@ -93,7 +97,7 @@ const AppRoutes = () => {
         <Route path="analytics" element={<AdminAnalytics />} />
         <Route path="awareness" element={<AwarenessManagement />} />
         <Route path="school-activities" element={<SchoolActivities />} />
-        <Route path="notices" element={<NoticeBoard />} />
+        <Route path="notice-board" element={<AdminNoticeBoard />} />
         <Route path="events" element={<AdminEvents />} />
         <Route path="logs" element={<AccessLogs />} />
         <Route path="settings" element={<AdminSettings />} />

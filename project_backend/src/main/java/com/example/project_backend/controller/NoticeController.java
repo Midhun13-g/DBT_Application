@@ -1,7 +1,7 @@
 package com.example.project_backend.controller;
 
 import com.example.project_backend.entity.Notice;
-import com.example.project_backend.repository.NoticeRepository;
+import com.example.project_backend.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000"})
 public class NoticeController {
 
-    private final NoticeRepository noticeRepository;
+    private final NoticeService noticeService;
 
     @GetMapping
     public ResponseEntity<Page<Notice>> getAllNotices(
@@ -26,26 +26,42 @@ public class NoticeController {
             @RequestParam(required = false) String keyword) {
         
         Pageable pageable = PageRequest.of(page, size);
-        Page<Notice> notices = noticeRepository.findFilteredNotices(district, type, keyword, pageable);
+        Page<Notice> notices = noticeService.getAllNotices(district, type, keyword, pageable);
         return ResponseEntity.ok(notices);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Notice> getNoticeById(@PathVariable Long id) {
+        Notice notice = noticeService.getNoticeById(id);
+        return ResponseEntity.ok(notice);
     }
 
     @PostMapping
     public ResponseEntity<Notice> createNotice(@RequestBody Notice notice) {
-        Notice savedNotice = noticeRepository.save(notice);
+        Notice savedNotice = noticeService.createNotice(notice);
         return ResponseEntity.ok(savedNotice);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Notice> updateNotice(@PathVariable Long id, @RequestBody Notice notice) {
-        notice.setId(id);
-        Notice updatedNotice = noticeRepository.save(notice);
+        Notice updatedNotice = noticeService.updateNotice(id, notice);
         return ResponseEntity.ok(updatedNotice);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteNotice(@PathVariable Long id) {
-        noticeRepository.deleteById(id);
+        noticeService.deleteNotice(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/active")
+    public ResponseEntity<Page<Notice>> getActiveNotices(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String district) {
+        
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Notice> notices = noticeService.getActiveNotices(district, pageable);
+        return ResponseEntity.ok(notices);
     }
 }

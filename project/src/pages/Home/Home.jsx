@@ -19,11 +19,45 @@ import DBTQuiz from '../../components/Quiz/DBTQuiz';
 import Chatbot from '../../components/Chatbot/Chatbot';
 import RoleDashboard from '../../components/RoleDashboard/RoleDashboard';
 import { useAuth } from '../../hooks/useAuth';
+import noticeService from '../../services/noticeService';
 
 const Home = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const [showQuiz, setShowQuiz] = useState(false);
+  const [notices, setNotices] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  React.useEffect(() => {
+    loadNotices();
+  }, []);
+
+  const loadNotices = () => {
+    try {
+      // Initialize dummy data and get notices
+      noticeService.initializeDummyData();
+      const noticeData = noticeService.getNoticesFromStorage();
+      
+      // Get top 3 active notices for display
+      const activeNotices = noticeData
+        .filter(notice => notice.isActive)
+        .sort((a, b) => {
+          // Sort by priority first, then by date
+          const priorityOrder = { URGENT: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
+          if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
+            return priorityOrder[b.priority] - priorityOrder[a.priority];
+          }
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        })
+        .slice(0, 3);
+      
+      setNotices(activeNotices);
+    } catch (error) {
+      console.error('Error loading notices:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getSchemeId = (title) => {
     const mapping = {
@@ -226,50 +260,83 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <Card className="bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500">
-              <div className="flex items-start space-x-3">
-                <div className="bg-blue-500 p-2 rounded-full">
-                  <Calendar className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Upcoming Workshop</h3>
-                  <p className="text-sm text-gray-600 mb-2">DBT Awareness Camp - March 15, 2024</p>
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                    High Priority
-                  </span>
-                </div>
-              </div>
-            </Card>
+            {loading ? (
+              Array.from({ length: 3 }).map((_, index) => (
+                <Card key={index} className="animate-pulse">
+                  <div className="flex items-start space-x-3">
+                    <div className="bg-gray-300 w-10 h-10 rounded-full"></div>
+                    <div className="flex-1">
+                      <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                      <div className="h-3 bg-gray-200 rounded mb-2"></div>
+                      <div className="h-6 bg-gray-200 rounded w-20"></div>
+                    </div>
+                  </div>
+                </Card>
+              ))
+            ) : notices.length > 0 ? (
+              notices.map((notice, index) => {
+                const getNoticeColor = (priority) => {
+                  switch (priority) {
+                    case 'URGENT': return { bg: 'from-red-50 to-red-100', border: 'border-red-500', iconBg: 'bg-red-500', badgeBg: 'bg-red-100 text-red-800' };
+                    case 'HIGH': return { bg: 'from-orange-50 to-orange-100', border: 'border-orange-500', iconBg: 'bg-orange-500', badgeBg: 'bg-orange-100 text-orange-800' };
+                    case 'MEDIUM': return { bg: 'from-blue-50 to-blue-100', border: 'border-blue-500', iconBg: 'bg-blue-500', badgeBg: 'bg-blue-100 text-blue-800' };
+                    default: return { bg: 'from-green-50 to-green-100', border: 'border-green-500', iconBg: 'bg-green-500', badgeBg: 'bg-green-100 text-green-800' };
+                  }
+                };
+                
+                const getNoticeIcon = (type) => {
+                  switch (type) {
+                    case 'CAMP': return Calendar;
+                    case 'DEADLINE': return AlertCircle;
+                    case 'SCHOLARSHIP': return CheckCircle;
+                    default: return Calendar;
+                  }
+                };
+                
+                const colors = getNoticeColor(notice.priority);
+                const IconComponent = getNoticeIcon(notice.type);
+                
+                return (
+                  <Link key={notice.id} to="/notice-board" className="block">
+                    <Card className={`bg-gradient-to-r ${colors.bg} border-l-4 ${colors.border} hover:shadow-lg transition-shadow cursor-pointer`}>
+                      <div className="flex items-start space-x-3">
+                        <div className={`${colors.iconBg} p-2 rounded-full`}>
+                          <IconComponent className="h-5 w-5 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-gray-900 mb-1">{notice.title}</h3>
+                          <p className="text-sm text-gray-600 mb-2">
+                            {notice.content.length > 60 ? `${notice.content.substring(0, 60)}...` : notice.content}
+                          </p>
+                          <div className="flex items-center justify-between">
+                            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${colors.badgeBg}`}>
+                              {notice.priority}
+                            </span>
+                            {notice.eventDate && (
+                              <span className="text-xs text-gray-500">
+                                {new Date(notice.eventDate).toLocaleDateString()}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  </Link>
+                );
+              })
+            ) : (
+              <Card className="col-span-3 text-center py-8">
+                <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2">No Notices Available</h3>
+                <p className="text-gray-600">Check back later for updates and announcements.</p>
+                <Link to="/notice-board">
+                  <Button variant="outline" className="mt-4">
+                    View Notice Board
+                  </Button>
+                </Link>
+              </Card>
+            )}
 
-            <Card className="bg-gradient-to-r from-green-50 to-green-100 border-l-4 border-green-500">
-              <div className="flex items-start space-x-3">
-                <div className="bg-green-500 p-2 rounded-full">
-                  <CheckCircle className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">New Scholarship Scheme</h3>
-                  <p className="text-sm text-gray-600 mb-2">Applications open for Merit Scholarship 2024</p>
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                    New
-                  </span>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="bg-gradient-to-r from-purple-50 to-purple-100 border-l-4 border-purple-500">
-              <div className="flex items-start space-x-3">
-                <div className="bg-purple-500 p-2 rounded-full">
-                  <AlertCircle className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Important Notice</h3>
-                  <p className="text-sm text-gray-600 mb-2">Deadline extension for DBT linking - March 31</p>
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                    Urgent
-                  </span>
-                </div>
-              </div>
-            </Card>
           </div>
         </div>
       </section>
