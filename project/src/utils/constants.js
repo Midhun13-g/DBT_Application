@@ -24,6 +24,29 @@ export const LANGUAGES = {
   mr: 'मराठी'
 };
 
+export const DISTRICTS = [
+  'Delhi',
+  'Mumbai', 
+  'Bangalore',
+  'Chennai',
+  'Kolkata',
+  'Hyderabad',
+  'Pune',
+  'Ahmedabad',
+  'Jaipur',
+  'Lucknow',
+  'Bhopal',
+  'Patna',
+  'Gandhinagar',
+  'Thiruvananthapuram',
+  'Bhubaneswar',
+  'Guwahati',
+  'Chandigarh',
+  'Shimla',
+  'Dehradun',
+  'Ranchi'
+];
+
 export const CAMP_LOCATIONS = [
   'Delhi Central Office',
   'Mumbai Regional Center',
@@ -64,4 +87,35 @@ export const ADMIN_PERMISSIONS = {
   DELETE_USERS: 'delete_users',
   MANAGE_CAMPS: 'manage_camps',
   VIEW_ANALYTICS: 'view_analytics'
+};
+
+export const NOTICE_TYPES = {
+  CAMP: 'camp',
+  WORKSHOP: 'workshop', 
+  ANNOUNCEMENT: 'announcement',
+  VERIFICATION: 'verification',
+  PROGRAM: 'program'
+};
+
+export const PRIORITY_LEVELS = {
+  LOW: 'low',
+  MEDIUM: 'medium',
+  HIGH: 'high',
+  URGENT: 'urgent'
+};
+
+export const ACTIVITY_TYPES = {
+  WORKSHOP: 'workshop',
+  MEETING: 'meeting',
+  AWARENESS: 'awareness',
+  TRAINING: 'training'
+};
+
+export const TARGET_AUDIENCES = {
+  ALL: 'all',
+  STUDENTS: 'students',
+  PARENTS: 'parents',
+  TEACHERS: 'teachers',
+  ELDERLY: 'elderly',
+  WOMEN: 'women'
 };
