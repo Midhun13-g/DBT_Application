@@ -92,24 +92,51 @@ const SeedingGuide = () => {
   const videos = [
     {
       id: 1,
-      title: 'Net Banking Aadhaar Linking - SBI',
-      duration: '3:45',
-      thumbnail: 'https://images.pexels.com/photos/5473955/pexels-photo-5473955.jpeg?auto=compress&cs=tinysrgb&w=300',
-      url: '#'
+      title: 'UIDAI Official Guide',
+      duration: '4:32',
+      thumbnail: 'https://img.youtube.com/vi/0-Z99j3RwBY/maxresdefault.jpg',
+      url: 'https://www.youtube.com/embed/0-Z99j3RwBY',
+      description: 'Official UIDAI Aadhaar guidance and procedures'
     },
     {
       id: 2,
-      title: 'ATM Aadhaar Seeding Process',
-      duration: '2:30',
-      thumbnail: 'https://images.pexels.com/photos/4386321/pexels-photo-4386321.jpeg?auto=compress&cs=tinysrgb&w=300',
-      url: '#'
+      title: 'Net Banking Aadhaar Linking - SBI',
+      duration: '3:45',
+      thumbnail: 'https://img.youtube.com/vi/rUBGa76gYsw/maxresdefault.jpg',
+      url: 'https://www.youtube.com/embed/rUBGa76gYsw',
+      description: 'Complete guide for SBI net banking Aadhaar linking'
     },
     {
       id: 3,
       title: 'Branch Visit Complete Guide',
       duration: '5:20',
-      thumbnail: 'https://images.pexels.com/photos/5473956/pexels-photo-5473956.jpeg?auto=compress&cs=tinysrgb&w=300',
-      url: '#'
+      thumbnail: 'https://img.youtube.com/vi/Pbz-nGsYOAs/maxresdefault.jpg',
+      url: 'https://www.youtube.com/embed/Pbz-nGsYOAs',
+      description: 'What to expect during branch visit and required documents'
+    },
+    {
+      id: 4,
+      title: 'Understanding DBT',
+      duration: '6:15',
+      thumbnail: 'https://img.youtube.com/vi/umYJLxMLZ9E/maxresdefault.jpg',
+      url: 'https://www.youtube.com/embed/umYJLxMLZ9E',
+      description: 'Complete understanding of Direct Benefit Transfer system'
+    },
+    {
+      id: 5,
+      title: 'Aadhaar Seeding Awareness - Part 1',
+      duration: '4:30',
+      thumbnail: 'https://img.youtube.com/vi/gjPkUF23UTg/maxresdefault.jpg',
+      url: 'https://www.youtube.com/embed/gjPkUF23UTg',
+      description: 'Government awareness program on Aadhaar seeding'
+    },
+    {
+      id: 6,
+      title: 'Aadhaar Seeding Awareness - Part 2',
+      duration: '3:45',
+      thumbnail: 'https://img.youtube.com/vi/PQ2rO7BDE9c/maxresdefault.jpg',
+      url: 'https://www.youtube.com/embed/PQ2rO7BDE9c',
+      description: 'Advanced Aadhaar seeding awareness and best practices'
     }
   ];
 
@@ -269,7 +296,7 @@ const SeedingGuide = () => {
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">
               Video Tutorials
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {videos.map((video) => (
                 <div key={video.id} className="group cursor-pointer">
                   <div 
@@ -290,9 +317,12 @@ const SeedingGuide = () => {
                       {video.duration}
                     </div>
                   </div>
-                  <h3 className="font-medium text-gray-900 mt-3 group-hover:text-blue-600 transition-colors">
-                    {video.title}
-                  </h3>
+                  <div className="mt-3">
+                    <h3 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                      {video.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 mt-1">{video.description}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -305,19 +335,55 @@ const SeedingGuide = () => {
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">
               Download Resources
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Button variant="outline" icon={Download} className="justify-start">
-                Aadhaar Seeding Form (PDF)
-              </Button>
-              <Button variant="outline" icon={Download} className="justify-start">
-                Bank List for DBT (Excel)
-              </Button>
-              <Button variant="outline" icon={FileText} className="justify-start">
-                Step-by-Step Guide (PDF)
-              </Button>
-              <Button variant="outline" icon={Download} className="justify-start">
-                Troubleshooting Guide
-              </Button>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <a href="https://resident.uidai.gov.in/bank-mapper" target="_blank" rel="noopener noreferrer" className="block">
+                <Button variant="outline" icon={Download} className="justify-start w-full">
+                  <div className="text-left">
+                    <div className="font-medium">Aadhaar Bank Linking</div>
+                    <div className="text-xs text-gray-500">Direct bank mapper tool</div>
+                  </div>
+                </Button>
+              </a>
+              <a href="https://uidai.gov.in/my-aadhaar/get-aadhaar" target="_blank" rel="noopener noreferrer" className="block">
+                <Button variant="outline" icon={Download} className="justify-start w-full">
+                  <div className="text-left">
+                    <div className="font-medium">Aadhaar Services</div>
+                    <div className="text-xs text-gray-500">Enrollment & updates</div>
+                  </div>
+                </Button>
+              </a>
+              <a href="https://pfms.nic.in/Users/BeneficiaryEnquiry.aspx" target="_blank" rel="noopener noreferrer" className="block">
+                <Button variant="outline" icon={FileText} className="justify-start w-full">
+                  <div className="text-left">
+                    <div className="font-medium">DBT Status Check</div>
+                    <div className="text-xs text-gray-500">PFMS beneficiary enquiry</div>
+                  </div>
+                </Button>
+              </a>
+              <a href="https://uidai.gov.in/contact-support/have-any-question" target="_blank" rel="noopener noreferrer" className="block">
+                <Button variant="outline" icon={Download} className="justify-start w-full">
+                  <div className="text-left">
+                    <div className="font-medium">Aadhaar Support</div>
+                    <div className="text-xs text-gray-500">FAQ & help center</div>
+                  </div>
+                </Button>
+              </a>
+              <a href="https://dbtbharat.gov.in/page/aboutus" target="_blank" rel="noopener noreferrer" className="block">
+                <Button variant="outline" icon={Download} className="justify-start w-full">
+                  <div className="text-left">
+                    <div className="font-medium">About DBT Mission</div>
+                    <div className="text-xs text-gray-500">DBT program details</div>
+                  </div>
+                </Button>
+              </a>
+              <a href="https://www.digitalindia.gov.in/" target="_blank" rel="noopener noreferrer" className="block">
+                <Button variant="outline" icon={Download} className="justify-start w-full">
+                  <div className="text-left">
+                    <div className="font-medium">Digital India Portal</div>
+                    <div className="text-xs text-gray-500">Digital services info</div>
+                  </div>
+                </Button>
+              </a>
             </div>
           </Card>
         </div>
@@ -328,14 +394,40 @@ const SeedingGuide = () => {
         isOpen={showVideoModal}
         onClose={() => setShowVideoModal(false)}
         title={selectedVideo?.title}
-        size="lg"
+        size="xl"
       >
-        <div className="aspect-video bg-gray-900 rounded-lg flex items-center justify-center">
-          <div className="text-center text-white">
-            <Play className="h-16 w-16 mx-auto mb-4 opacity-50" />
-            <p>Video player would be embedded here</p>
-            <p className="text-sm opacity-75 mt-2">Duration: {selectedVideo?.duration}</p>
+        <div className="space-y-4">
+          <div className="aspect-video bg-gray-900 rounded-lg overflow-hidden">
+            {selectedVideo?.url ? (
+              <iframe
+                src={selectedVideo.url}
+                title={selectedVideo.title}
+                className="w-full h-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full text-center text-white">
+                <div>
+                  <Play className="h-16 w-16 mx-auto mb-4 opacity-50" />
+                  <p>Video player would be embedded here</p>
+                  <p className="text-sm opacity-75 mt-2">Duration: {selectedVideo?.duration}</p>
+                </div>
+              </div>
+            )}
           </div>
+          {selectedVideo?.description && (
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <h4 className="font-medium text-gray-900 mb-2">About this video</h4>
+              <p className="text-gray-700">{selectedVideo.description}</p>
+              <div className="flex items-center space-x-4 mt-3 text-sm text-gray-600">
+                <span>Duration: {selectedVideo.duration}</span>
+                <span>•</span>
+                <span>Official Government Video</span>
+              </div>
+            </div>
+          )}
         </div>
       </Modal>
     </div>
