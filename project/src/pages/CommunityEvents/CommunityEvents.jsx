@@ -206,7 +206,7 @@ const CommunityEvents = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Notice Board
+              Community Events
             </h1>
             <p className="text-xl text-gray-600">
               Stay updated with latest announcements from your Gram Panchayat

@@ -21,7 +21,7 @@ const Header = () => {
     { name: t('nav.seedingGuide'), href: '/seeding-guide' },
     { name: t('nav.awareness'), href: '/awareness' },
     { name: t('nav.campBooking'), href: '/camp-booking' },
-    { name: 'Notice Board', href: '/events' },
+    { name: 'Community Events', href: '/events' },
   ];
 
   const [unreadCount] = useState(2); // Mock unread notifications count
