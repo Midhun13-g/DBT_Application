@@ -556,9 +556,9 @@ const Home = () => {
                   Check Status Now
                 </Button>
               </Link>
-              <Link to="/camp-booking">
+              <Link to="/events">
                 <Button variant="outline" size="lg" icon={Calendar}>
-                  Book Assistance
+                  Community Events
                 </Button>
               </Link>
             </div>

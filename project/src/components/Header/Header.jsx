@@ -20,7 +20,6 @@ const Header = () => {
     { name: t('nav.dbtCheck'), href: '/dbt-check' },
     { name: t('nav.seedingGuide'), href: '/seeding-guide' },
     { name: t('nav.awareness'), href: '/awareness' },
-    { name: t('nav.campBooking'), href: '/camp-booking' },
     { name: 'Community Events', href: '/events' },
   ];
 

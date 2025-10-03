@@ -6,8 +6,6 @@ const AdminSidebar = () => {
   const navigation = [
     { name: 'Overview', href: '/admin', icon: BarChart3, exact: true },
     { name: 'User Management', href: '/admin/users', icon: Users },
-    { name: 'Camp Management', href: '/admin/camps', icon: MapPin },
-    { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
     { name: 'Awareness Materials', href: '/admin/awareness', icon: BookOpen },
     { name: 'School Activities', href: '/admin/school-activities', icon: School },
     { name: 'Notice Board', href: '/admin/notice-board', icon: Megaphone },
