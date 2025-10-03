@@ -14,7 +14,9 @@ const NoticeBoard = () => {
   const loadNotices = () => {
     noticeService.initializeDummyData();
     const adminNotices = noticeService.getNoticesFromStorage();
+    console.log('User NoticeBoard - Admin notices:', adminNotices);
     const activeNotices = adminNotices.filter(notice => notice.isActive);
+    console.log('User NoticeBoard - Active notices:', activeNotices);
     setNotices(activeNotices);
   };
 

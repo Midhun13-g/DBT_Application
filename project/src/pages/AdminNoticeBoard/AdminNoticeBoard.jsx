@@ -27,20 +27,28 @@ const AdminNoticeBoard = () => {
   }, []);
 
   const loadNotices = () => {
-    const notices = noticeService.initializeDummyData();
+    // Initialize dummy data if needed, then get all notices
+    noticeService.initializeDummyData();
+    const notices = noticeService.getNoticesFromStorage();
+    console.log('Loaded notices:', notices);
     setNotices(notices);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Form submitted with data:', formData);
     try {
       if (editingNotice) {
+        console.log('Updating notice:', editingNotice.id);
         await noticeService.updateNotice(editingNotice.id, formData);
       } else {
-        await noticeService.createNotice(formData);
+        console.log('Creating new notice');
+        const result = await noticeService.createNotice(formData);
+        console.log('Notice created:', result);
       }
       loadNotices();
       resetForm();
+      alert('Notice saved successfully!');
     } catch (error) {
       console.error('Error saving notice:', error);
       alert('Error saving notice. Please try again.');
@@ -146,7 +154,13 @@ const AdminNoticeBoard = () => {
               Create and manage notices for the community
             </p>
           </div>
-          <Button onClick={() => setShowModal(true)} className="flex items-center space-x-2">
+          <Button 
+            onClick={() => {
+              console.log('Add Notice button clicked');
+              setShowModal(true);
+            }} 
+            className="flex items-center space-x-2"
+          >
             <Plus className="h-4 w-4" />
             <span>Add Notice</span>
           </Button>

@@ -6,6 +6,7 @@ import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
 import { DISTRICTS } from '../../utils/constants';
 import communityActionService from '../../services/communityActionService';
+import noticeService from '../../services/noticeService';
 
 const CommunityEvents = () => {
   const { t } = useTranslation();
@@ -46,14 +47,16 @@ const CommunityEvents = () => {
   }, []);
 
   const loadNoticesFromStorage = () => {
-    // Initialize dummy data if needed
-    const actions = communityActionService.initializeDummyData();
+    // Load from admin notices first
+    const adminNotices = noticeService.getNoticesFromStorage();
+    const convertedNotices = noticeService.convertToCommunitFormat(adminNotices);
     
-    // Convert community actions to notice format for display
+    // Also load community actions
+    const actions = communityActionService.initializeDummyData();
     const communityNotices = actions
       .filter(action => action.isActive)
       .map(action => ({
-        id: action.id,
+        id: `community_${action.id}`,
         title: action.title,
         description: action.description,
         type: action.actionType.toLowerCase().replace('_', ' '),
@@ -94,8 +97,11 @@ const CommunityEvents = () => {
         durationHours: action.durationHours
       }));
     
-    setNotices(communityNotices);
-    setFilteredNotices(communityNotices);
+    // Combine both admin notices and community actions
+    const allNotices = [...convertedNotices, ...communityNotices];
+    console.log('Loaded community notices:', allNotices);
+    setNotices(allNotices);
+    setFilteredNotices(allNotices);
   };
 
   useEffect(() => {
