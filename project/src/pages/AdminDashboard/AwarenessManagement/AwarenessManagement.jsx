@@ -58,20 +58,97 @@ const AwarenessManagement = () => {
       setIsConnected(socketService.isConnected());
     }, 2000);
     
-    // Load awareness content from localStorage with delay
+    // Load awareness content from localStorage
     const loadAwareness = () => {
-      const stored = localStorage.getItem('awarenessContent');
-      if (stored) {
-        try {
-          const storedAwareness = JSON.parse(stored);
-          setAwareness(storedAwareness);
-        } catch (error) {
-          console.error('Error parsing stored awareness content:', error);
-          setAwareness([]);
+      // Clear existing content and initialize with fresh dummy data
+      localStorage.removeItem('awarenessContent');
+      initializeDummyData();
+    };
+
+    const initializeDummyData = () => {
+      const dummyAwareness = [
+        {
+          id: 1,
+          title: "Understanding DBT Benefits",
+          content: "Direct Benefit Transfer (DBT) is a revolutionary system that ensures government subsidies reach beneficiaries directly. Learn how to check your DBT status and link your Aadhaar with bank accounts for seamless transfers.",
+          description: "Comprehensive guide on DBT system and its benefits for citizens",
+          category: "EDUCATION",
+          mediaType: "ARTICLE",
+          tags: ["dbt", "benefits", "government"],
+          targetAudience: "ALL",
+          priority: "HIGH",
+          isActive: true,
+          isFeatured: true,
+          createdAt: "2024-01-15T10:00:00Z",
+          updatedAt: "2024-01-15T10:00:00Z"
+        },
+        {
+          id: 2,
+          title: "Aadhaar Seeding Process",
+          content: "Step-by-step guide to link your Aadhaar number with your bank account. This process is essential for receiving government benefits and subsidies directly in your account.",
+          description: "Complete tutorial on Aadhaar seeding for bank accounts",
+          category: "FINANCE",
+          mediaType: "VIDEO",
+          videoUrl: "https://www.youtube.com/watch?v=example",
+          tags: ["aadhaar", "banking", "seeding"],
+          targetAudience: "ALL",
+          priority: "URGENT",
+          isActive: true,
+          isFeatured: false,
+          createdAt: "2024-01-14T14:30:00Z",
+          updatedAt: "2024-01-14T14:30:00Z"
+        },
+        {
+          id: 3,
+          title: "Digital Literacy for Seniors",
+          content: "Learn basic digital skills to access government services online. This guide covers smartphone usage, internet banking, and digital payment methods for senior citizens.",
+          description: "Digital literacy program designed for elderly citizens",
+          category: "TECHNOLOGY",
+          mediaType: "INFOGRAPHIC",
+          imageUrl: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+          tags: ["digital", "seniors", "technology"],
+          targetAudience: "SENIOR_CITIZENS",
+          priority: "NORMAL",
+          isActive: true,
+          isFeatured: false,
+          createdAt: "2024-01-13T09:15:00Z",
+          updatedAt: "2024-01-13T09:15:00Z"
+        },
+        {
+          id: 4,
+          title: "Health Insurance Schemes",
+          content: "Explore various government health insurance schemes like Ayushman Bharat. Learn about eligibility criteria, application process, and benefits covered under these schemes.",
+          description: "Information about government health insurance programs",
+          category: "HEALTH",
+          mediaType: "ARTICLE",
+          tags: ["health", "insurance", "ayushman"],
+          targetAudience: "ALL",
+          priority: "HIGH",
+          isActive: true,
+          isFeatured: true,
+          createdAt: "2024-01-12T16:45:00Z",
+          updatedAt: "2024-01-12T16:45:00Z"
+        },
+        {
+          id: 5,
+          title: "Women Empowerment Schemes",
+          content: "Discover government schemes designed for women empowerment including skill development programs, financial assistance, and entrepreneurship support initiatives.",
+          description: "Comprehensive guide on women-focused government schemes",
+          category: "EDUCATION",
+          mediaType: "PDF",
+          pdfUrl: "data:application/pdf;base64,sample",
+          tags: ["women", "empowerment", "schemes"],
+          targetAudience: "WOMEN",
+          priority: "NORMAL",
+          isActive: true,
+          isFeatured: false,
+          createdAt: "2024-01-11T11:20:00Z",
+          updatedAt: "2024-01-11T11:20:00Z"
         }
-      } else {
-        setAwareness([]);
-      }
+      ];
+      
+      localStorage.setItem('awarenessContent', JSON.stringify(dummyAwareness));
+      setAwareness(dummyAwareness);
     };
 
     loadAwareness();

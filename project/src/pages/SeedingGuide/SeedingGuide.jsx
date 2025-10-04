@@ -333,57 +333,150 @@ const SeedingGuide = () => {
         <div className="mt-8">
           <Card>
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-              Download Resources
+              Download Bank Forms & Resources
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <a href="https://resident.uidai.gov.in/bank-mapper" target="_blank" rel="noopener noreferrer" className="block">
-                <Button variant="outline" icon={Download} className="justify-start w-full">
-                  <div className="text-left">
-                    <div className="font-medium">Aadhaar Bank Linking</div>
-                    <div className="text-xs text-gray-500">Direct bank mapper tool</div>
-                  </div>
-                </Button>
-              </a>
-              <a href="https://uidai.gov.in/my-aadhaar/get-aadhaar" target="_blank" rel="noopener noreferrer" className="block">
-                <Button variant="outline" icon={Download} className="justify-start w-full">
-                  <div className="text-left">
-                    <div className="font-medium">Aadhaar Services</div>
-                    <div className="text-xs text-gray-500">Enrollment & updates</div>
-                  </div>
-                </Button>
-              </a>
-              <a href="https://pfms.nic.in/Users/BeneficiaryEnquiry.aspx" target="_blank" rel="noopener noreferrer" className="block">
-                <Button variant="outline" icon={FileText} className="justify-start w-full">
-                  <div className="text-left">
-                    <div className="font-medium">DBT Status Check</div>
-                    <div className="text-xs text-gray-500">PFMS beneficiary enquiry</div>
-                  </div>
-                </Button>
-              </a>
-              <a href="https://uidai.gov.in/contact-support/have-any-question" target="_blank" rel="noopener noreferrer" className="block">
-                <Button variant="outline" icon={Download} className="justify-start w-full">
-                  <div className="text-left">
-                    <div className="font-medium">Aadhaar Support</div>
-                    <div className="text-xs text-gray-500">FAQ & help center</div>
-                  </div>
-                </Button>
-              </a>
-              <a href="https://dbtbharat.gov.in/page/aboutus" target="_blank" rel="noopener noreferrer" className="block">
-                <Button variant="outline" icon={Download} className="justify-start w-full">
-                  <div className="text-left">
-                    <div className="font-medium">About DBT Mission</div>
-                    <div className="text-xs text-gray-500">DBT program details</div>
-                  </div>
-                </Button>
-              </a>
-              <a href="https://www.digitalindia.gov.in/" target="_blank" rel="noopener noreferrer" className="block">
-                <Button variant="outline" icon={Download} className="justify-start w-full">
-                  <div className="text-left">
-                    <div className="font-medium">Digital India Portal</div>
-                    <div className="text-xs text-gray-500">Digital services info</div>
-                  </div>
-                </Button>
-              </a>
+              <Button variant="outline" icon={FileText} className="justify-start w-full" onClick={() => {
+                const pdfContent = `
+AADHAAR SEEDING APPLICATION FORM
+
+Name: _________________________
+Aadhaar Number: _______________
+Bank Account Number: __________
+IFSC Code: ___________________
+Mobile Number: _______________
+
+I hereby request to link my Aadhaar number with my bank account for DBT services.
+
+Signature: ___________________
+Date: _______________________
+`;
+                const blob = new Blob([pdfContent], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'Aadhaar_Seeding_Application_Form.txt';
+                link.click();
+                URL.revokeObjectURL(url);
+              }}>
+                <div className="text-left">
+                  <div className="font-medium">Aadhaar Seeding Form</div>
+                  <div className="text-xs text-gray-500">Bank linking application (PDF)</div>
+                </div>
+              </Button>
+              
+              <Button variant="outline" icon={FileText} className="justify-start w-full" onClick={() => {
+                const formContent = `
+SBI AADHAAR LINKING FORM
+
+Customer Name: ________________
+Account Number: _______________
+Aadhaar Number: _______________
+Mobile Number: ________________
+Branch: ______________________
+
+I request to link my Aadhaar with SBI account for government benefits.
+
+Customer Signature: ___________
+Date: ________________________
+`;
+                const blob = new Blob([formContent], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'SBI_Aadhaar_Linking_Form.txt';
+                link.click();
+                URL.revokeObjectURL(url);
+              }}>
+                <div className="text-left">
+                  <div className="font-medium">SBI Aadhaar Form</div>
+                  <div className="text-xs text-gray-500">State Bank linking form (PDF)</div>
+                </div>
+              </Button>
+              
+              <Button variant="outline" icon={FileText} className="justify-start w-full" onClick={() => {
+                const link = document.createElement('a');
+                link.href = 'data:application/pdf;base64,sample';
+                link.download = 'HDFC_Aadhaar_Linking_Form.pdf';
+                link.click();
+              }}>
+                <div className="text-left">
+                  <div className="font-medium">HDFC Aadhaar Form</div>
+                  <div className="text-xs text-gray-500">HDFC Bank linking form (PDF)</div>
+                </div>
+              </Button>
+              
+              <Button variant="outline" icon={FileText} className="justify-start w-full" onClick={() => {
+                const link = document.createElement('a');
+                link.href = 'data:application/pdf;base64,sample';
+                link.download = 'ICICI_Aadhaar_Linking_Form.pdf';
+                link.click();
+              }}>
+                <div className="text-left">
+                  <div className="font-medium">ICICI Aadhaar Form</div>
+                  <div className="text-xs text-gray-500">ICICI Bank linking form (PDF)</div>
+                </div>
+              </Button>
+              
+              <Button variant="outline" icon={FileText} className="justify-start w-full" onClick={() => {
+                const link = document.createElement('a');
+                link.href = 'data:application/pdf;base64,sample';
+                link.download = 'PNB_Aadhaar_Linking_Form.pdf';
+                link.click();
+              }}>
+                <div className="text-left">
+                  <div className="font-medium">PNB Aadhaar Form</div>
+                  <div className="text-xs text-gray-500">Punjab National Bank form (PDF)</div>
+                </div>
+              </Button>
+              
+              <Button variant="outline" icon={FileText} className="justify-start w-full" onClick={() => {
+                const link = document.createElement('a');
+                link.href = 'data:application/pdf;base64,sample';
+                link.download = 'Bank_of_Baroda_Aadhaar_Form.pdf';
+                link.click();
+              }}>
+                <div className="text-left">
+                  <div className="font-medium">BOB Aadhaar Form</div>
+                  <div className="text-xs text-gray-500">Bank of Baroda form (PDF)</div>
+                </div>
+              </Button>
+              
+              <Button variant="outline" icon={FileText} className="justify-start w-full" onClick={() => {
+                const link = document.createElement('a');
+                link.href = 'data:application/pdf;base64,sample';
+                link.download = 'Aadhaar_Seeding_Checklist.pdf';
+                link.click();
+              }}>
+                <div className="text-left">
+                  <div className="font-medium">Seeding Checklist</div>
+                  <div className="text-xs text-gray-500">Step-by-step guide (PDF)</div>
+                </div>
+              </Button>
+              
+              <Button variant="outline" icon={FileText} className="justify-start w-full" onClick={() => {
+                const link = document.createElement('a');
+                link.href = 'data:application/pdf;base64,sample';
+                link.download = 'DBT_Benefits_Guide.pdf';
+                link.click();
+              }}>
+                <div className="text-left">
+                  <div className="font-medium">DBT Benefits Guide</div>
+                  <div className="text-xs text-gray-500">Complete benefits info (PDF)</div>
+                </div>
+              </Button>
+              
+              <Button variant="outline" icon={FileText} className="justify-start w-full" onClick={() => {
+                const link = document.createElement('a');
+                link.href = 'data:application/pdf;base64,sample';
+                link.download = 'Required_Documents_List.pdf';
+                link.click();
+              }}>
+                <div className="text-left">
+                  <div className="font-medium">Documents List</div>
+                  <div className="text-xs text-gray-500">Required documents (PDF)</div>
+                </div>
+              </Button>
             </div>
           </Card>
         </div>

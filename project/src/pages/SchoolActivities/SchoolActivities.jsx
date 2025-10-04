@@ -87,10 +87,9 @@ const SchoolActivities = () => {
 
   const loadSchoolActivities = () => {
     try {
-      const stored = localStorage.getItem('schoolActivities');
+      // Clear existing data and initialize with fresh dummy data
+      localStorage.removeItem('schoolActivities');
       let activities = [];
-      
-      if (!stored) {
         // Initialize with comprehensive dummy data
         const dummyActivities = [
           {
@@ -228,28 +227,8 @@ const SchoolActivities = () => {
           }
         ];
         
-        localStorage.setItem('schoolActivities', JSON.stringify(dummyActivities));
-        activities = dummyActivities;
-      } else {
-        try {
-          activities = JSON.parse(stored);
-          // Ensure activities have all required fields
-          activities = activities.map(activity => ({
-            ...activity,
-            objectives: activity.objectives || [],
-            agenda: activity.agenda || [],
-            resources: activity.resources || [],
-            tags: activity.tags || [],
-            feedback: activity.feedback || [],
-            averageRating: activity.averageRating || 0,
-            registeredUsers: activity.registeredUsers || [],
-            attendees: activity.attendees || 0
-          }));
-        } catch (error) {
-          console.error('Error parsing stored school activities:', error);
-          activities = [];
-        }
-      }
+      localStorage.setItem('schoolActivities', JSON.stringify(dummyActivities));
+      activities = dummyActivities;
       
       const activeActivities = activities.filter(activity => activity.isActive);
       setActivities(activeActivities);

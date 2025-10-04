@@ -83,9 +83,11 @@ const UserAwareness = () => {
       const activeContent = storedAwareness.filter(content => content.isActive);
       setAwareness(activeContent);
       setFilteredAwareness(activeContent);
-      console.log(`📚 Loaded ${activeContent.length} active content items`);
+      console.log(`📚 Loaded ${activeContent.length} active content items from localStorage`);
     } catch (error) {
       console.error('Error loading awareness content:', error);
+      setAwareness([]);
+      setFilteredAwareness([]);
     }
   };
   
@@ -164,25 +166,13 @@ const UserAwareness = () => {
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               Awareness Center
             </h1>
-            <div className="flex items-center space-x-4">
-              <p className="text-xl text-gray-600">
-                Educational content and resources for citizens
-              </p>
-              <div className={`flex items-center space-x-2 px-3 py-1 rounded-full text-sm ${
-                isConnected 
-                  ? 'bg-green-100 text-green-800' 
-                  : 'bg-yellow-100 text-yellow-800'
-              }`}>
-                {isConnected ? <Wifi className="h-4 w-4" /> : <WifiOff className="h-4 w-4" />}
-                <span>{isConnected ? 'Live Updates' : 'Cached Data'}</span>
-              </div>
-              {lastUpdate && (
-                <span className="text-sm text-gray-500">
-                  Updated: {lastUpdate.toLocaleTimeString()}
-                </span>
-              )}
-            </div>
+            <p className="text-xl text-gray-600">
+              ({awareness.length} items)
+            </p>
           </div>
+          <Button onClick={loadAwarenessContent} variant="outline">
+            Refresh Content
+          </Button>
         </div>
 
         {/* Filters */}
@@ -319,13 +309,7 @@ const UserAwareness = () => {
           })}
         </div>
 
-        {filteredAwareness.length === 0 && (
-          <div className="text-center py-12">
-            <BookOpen className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No content found</h3>
-            <p className="text-gray-500">Try adjusting your filters or check back later for new content.</p>
-          </div>
-        )}
+
 
         {/* Content Detail Modal */}
         <Modal

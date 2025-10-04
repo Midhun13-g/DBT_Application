@@ -503,7 +503,7 @@ const Awareness = () => {
           </div>
         </div>
 
-        {/* Dynamic Awareness Content */}
+        {/* Dynamic Awareness Content
         <div className="mt-12">
           <Card>
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">
@@ -590,7 +590,7 @@ const Awareness = () => {
               </div>
             )}
           </Card>
-        </div>
+        </div> */}
 
         {/* Educational Videos */}
         <div className="mt-12">
