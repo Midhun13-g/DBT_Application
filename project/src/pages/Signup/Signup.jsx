@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import Card from '../../components/Card/Card';
 import Button from '../../components/Button/Button';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../context/AuthContext';
 import { validateEmail, validatePhone, validatePassword, validateName } from '../../utils/validations';
 
 const Signup = () => {

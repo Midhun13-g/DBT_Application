@@ -21,20 +21,30 @@ public class AuthService {
     public Map<String, Object> authenticate(String email, String password) {
         Map<String, Object> response = new HashMap<>();
         
-        // Mock authentication logic
-        if ("admin@dbt.gov.in".equals(email) && "admin123".equals(password)) {
-            response.put("user", createMockUser(email, "Admin User", User.Role.ADMIN));
-            response.put("token", "mock-admin-token");
-            response.put("redirectTo", "/admin");
-        } else if ("user@example.com".equals(email) && "password".equals(password)) {
-            response.put("user", createMockUser(email, "John Doe", User.Role.USER));
-            response.put("token", "mock-user-token");
-            response.put("redirectTo", "/");
-        } else {
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isEmpty()) {
             throw new RuntimeException("Invalid credentials");
         }
         
+        User user = userOpt.get();
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new RuntimeException("Invalid credentials");
+        }
+        
+        if (!user.getIsActive()) {
+            throw new RuntimeException("Account is disabled");
+        }
+        
+        response.put("user", user);
+        response.put("token", generateToken(user));
+        response.put("redirectTo", user.getRole() == User.Role.ADMIN ? "/admin" : "/");
+        
         return response;
+    }
+    
+    private String generateToken(User user) {
+        // Simple token generation - replace with JWT in production
+        return "token_" + user.getId() + "_" + System.currentTimeMillis();
     }
 
     public User register(User user) {

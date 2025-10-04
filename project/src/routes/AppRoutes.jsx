@@ -17,6 +17,7 @@ import AdminAnalytics from '../pages/AdminDashboard/AdminAnalytics';
 import AdminSettings from '../pages/AdminSettings/AdminSettings';
 import AdminOverview from '../pages/AdminDashboard/AdminOverview';
 import AwarenessManagement from '../pages/AdminDashboard/AwarenessManagement/AwarenessManagement';
+import SchoolActivitiesManagement from '../pages/AdminDashboard/SchoolActivitiesManagement/SchoolActivitiesManagement';
 import AccessLogs from '../pages/AdminDashboard/AccessLogs/AccessLogs';
 import Notifications from '../pages/Notifications/Notifications';
 import Profile from '../pages/Profile/Profile';
@@ -25,10 +26,13 @@ import Events from '../pages/Events/Events';
 import SchoolActivities from '../pages/SchoolActivities/SchoolActivities';
 import KnowledgeHub from '../pages/KnowledgeHub/KnowledgeHub';
 import CommunityEvents from '../pages/CommunityEvents/CommunityEvents';
-import AdminEvents from '../pages/AdminEvents/AdminEvents';
 import AdminNoticeBoard from '../pages/AdminNoticeBoard/AdminNoticeBoard';
+import AdminCommunityEvents from '../pages/AdminCommunityEvents/AdminCommunityEvents';
 import NoticeTest from '../pages/NoticeTest/NoticeTest';
 import NoticeBoard from '../pages/NoticeBoard/NoticeBoard';
+import UserAwareness from '../pages/UserAwareness/UserAwareness';
+import Test from '../pages/Test/Test';
+import AdminTest from '../pages/AdminTest/AdminTest';
 
 import AdminLayout from '../layouts/AdminLayout';
 
@@ -58,6 +62,7 @@ const AppRoutes = () => {
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Home />} />
+      <Route path="/test" element={<Test />} />
       <Route path="/dbt-check" element={<DBTStatusCheck />} />
       <Route path="/seeding-guide" element={<SeedingGuide />} />
       <Route path="/awareness" element={<Awareness />} />
@@ -69,6 +74,7 @@ const AppRoutes = () => {
       <Route path="/school-activities" element={<SchoolActivities />} />
       <Route path="/knowledge-hub" element={<KnowledgeHub />} />
       <Route path="/events" element={<CommunityEvents />} />
+      <Route path="/awareness-center" element={<UserAwareness />} />
       <Route path="/notice-test" element={<NoticeTest />} />
 
       
@@ -92,13 +98,14 @@ const AppRoutes = () => {
         }
       >
         <Route index element={<AdminOverview />} />
+        <Route path="test" element={<AdminTest />} />
         <Route path="users" element={<UserManagement />} />
         <Route path="camps" element={<CampManagement />} />
         <Route path="analytics" element={<AdminAnalytics />} />
         <Route path="awareness" element={<AwarenessManagement />} />
-        <Route path="school-activities" element={<SchoolActivities />} />
+        <Route path="school-activities" element={<SchoolActivitiesManagement />} />
         <Route path="notice-board" element={<AdminNoticeBoard />} />
-        <Route path="events" element={<AdminEvents />} />
+        <Route path="community-events" element={<AdminCommunityEvents />} />
         <Route path="logs" element={<AccessLogs />} />
         <Route path="settings" element={<AdminSettings />} />
       </Route>

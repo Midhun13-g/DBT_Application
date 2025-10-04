@@ -6,14 +6,21 @@ import { DBTProvider } from './context/DBTContext';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import AppRoutes from './routes/AppRoutes';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+
 import './i18n/i18n';
 
 function AppContent() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
+  const isAuthRoute = location.pathname === '/login' || location.pathname === '/signup';
 
   if (isAdminRoute) {
-    return <AppRoutes />;
+    return (
+      <>
+        <AppRoutes />
+      </>
+    );
   }
 
   return (
@@ -29,15 +36,18 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <LanguageProvider>
-          <DBTProvider>
-            <AppContent />
-          </DBTProvider>
-        </LanguageProvider>
-      </AuthProvider>
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <AuthProvider>
+          <LanguageProvider>
+            <DBTProvider>
+
+              <AppContent />
+            </DBTProvider>
+          </LanguageProvider>
+        </AuthProvider>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

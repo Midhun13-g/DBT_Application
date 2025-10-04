@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.app.json"
   },
   "dependencies": {
+    "@stomp/stompjs": "^7.2.0",
     "@supabase/supabase-js": "^2.57.4",
     "axios": "^1.12.2",
     "caniuse-lite": "^1.0.30001746",
@@ -28,6 +29,8 @@
     "react-query": "^3.39.3",
     "react-router-dom": "^6.26.1",
     "recharts": "^2.15.4",
+    "socket.io-client": "^4.8.1",
+    "sockjs-client": "^1.6.1",
     "sucrase": "^3.35.0",
     "victory-vendor": "^37.3.6"
   },

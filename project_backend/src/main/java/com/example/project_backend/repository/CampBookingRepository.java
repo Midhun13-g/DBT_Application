@@ -32,6 +32,9 @@ public interface CampBookingRepository extends JpaRepository<CampBooking, Long> 
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM CampBooking cb WHERE cb.user.id = :userId")
-    void deleteByUserId(@Param("userId") Long userId);
+    @Query("UPDATE CampBooking cb SET cb.status = 'CANCELLED' WHERE cb.user.id = :userId AND cb.status != 'COMPLETED'")
+    int cancelBookingsByUserId(@Param("userId") Long userId);
+    
+    @Query("SELECT cb FROM CampBooking cb WHERE cb.user.id = :userId AND cb.status = :status")
+    List<CampBooking> findByUserIdAndStatus(@Param("userId") Long userId, @Param("status") CampBooking.BookingStatus status);
 }

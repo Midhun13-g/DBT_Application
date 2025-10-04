@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { School, Calendar, Users, Upload, Download, Eye, Plus, Filter, Search, Clock, MapPin, FileText, Video, Image, Bell, Star, Share2, MessageCircle, ThumbsUp, BookOpen, Award, CheckCircle, AlertCircle, UserCheck, Camera, Mic, Send, CreditCard as Edit, Trash2, ExternalLink, Target, TrendingUp, BarChart3 } from 'lucide-react';
+import { School, Calendar, Users, Upload, Download, Eye, Plus, Filter, Search, Clock, MapPin, FileText, Video, Image, Bell, Star, Share2, MessageCircle, ThumbsUp, BookOpen, Award, CheckCircle, AlertCircle, UserCheck, Camera, Mic, Send, CreditCard as Edit, Trash2, ExternalLink, Target, TrendingUp, BarChart3, Wifi, WifiOff, RefreshCw } from 'lucide-react';
 import Card from '../../components/Card/Card';
 import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
+import socketService from '../../services/socketService';
 
 const SchoolActivities = () => {
   const { t } = useTranslation();
@@ -14,6 +15,8 @@ const SchoolActivities = () => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [userRole, setUserRole] = useState('student');
+  const [isConnected, setIsConnected] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState(null);
   const [filters, setFilters] = useState({
     school: '',
     type: '',
@@ -40,56 +43,224 @@ const SchoolActivities = () => {
   });
 
   useEffect(() => {
-    const mockActivities = [
-      {
-        id: 1,
-        title: 'DBT Awareness Workshop for Parents',
-        description: 'Interactive session explaining the importance of Aadhaar seeding for scholarship benefits.',
-        type: 'workshop',
-        school: 'Government High School, Delhi',
-        date: '2024-01-28',
-        time: '2:00 PM - 4:00 PM',
-        venue: 'School Auditorium',
-        organizer: 'Parent-Teacher Committee',
-        targetAudience: 'parents',
-        attendees: 45,
-        maxAttendees: 60,
-        registeredUsers: ['user1', 'user2', 'user3'],
-        objectives: [
-          'Understand the importance of DBT for scholarships',
-          'Learn how to check Aadhaar seeding status',
-          'Know the steps to enable DBT in bank accounts'
-        ],
-        agenda: [
-          { time: '2:00 PM', topic: 'Welcome & Introduction' },
-          { time: '2:15 PM', topic: 'What is DBT and why it matters' },
-          { time: '2:45 PM', topic: 'Aadhaar seeding process demonstration' },
-          { time: '3:15 PM', topic: 'Q&A Session' },
-          { time: '3:45 PM', topic: 'Next steps and resources' }
-        ],
-        resources: [
-          { name: 'DBT Guide.pdf', type: 'pdf', size: '2.5 MB' },
-          { name: 'Workshop Recording', type: 'video', size: '45 MB' },
-          { name: 'Aadhaar Seeding Checklist', type: 'pdf', size: '1.2 MB' }
-        ],
-        status: 'upcoming',
-        priority: 'high',
-        tags: ['DBT', 'Aadhaar', 'Parents', 'Scholarships'],
-        feedback: [
-          { user: 'Parent A', rating: 5, comment: 'Very informative session!' },
-          { user: 'Parent B', rating: 4, comment: 'Good content, could use more examples' }
-        ],
-        averageRating: 4.5,
-        photos: ['photo1.jpg', 'photo2.jpg'],
-        liveStream: null,
-        recordingUrl: 'https://example.com/recording1',
-        createdAt: '2024-01-20',
-        updatedAt: '2024-01-22'
+    loadSchoolActivities();
+    
+    // Initialize socket connection
+    const initSocket = async () => {
+      try {
+        await socketService.connect();
+        const user = JSON.parse(localStorage.getItem('dbt_user') || '{}');
+        if (user.id) {
+          socketService.registerUser({
+            userId: user.id,
+            role: user.role || 'user',
+            name: user.name || 'User'
+          });
+        }
+        setIsConnected(true);
+      } catch (error) {
+        console.warn('Socket connection failed:', error);
+        setIsConnected(false);
       }
-    ];
-    setActivities(mockActivities);
-    setFilteredActivities(mockActivities);
+    };
+    
+    initSocket();
+    
+    // Listen for real-time activity updates
+    const handleActivityUpdate = (event) => {
+      console.log('🏫 School activity update received:', event.detail);
+      loadSchoolActivities();
+    };
+    
+    window.addEventListener('schoolActivityUpdate', handleActivityUpdate);
+    
+    // Check connection status periodically
+    const statusInterval = setInterval(() => {
+      setIsConnected(socketService.isConnected());
+    }, 3000);
+    
+    return () => {
+      window.removeEventListener('schoolActivityUpdate', handleActivityUpdate);
+      clearInterval(statusInterval);
+    };
   }, []);
+
+  const loadSchoolActivities = () => {
+    try {
+      const stored = localStorage.getItem('schoolActivities');
+      let activities = [];
+      
+      if (!stored) {
+        // Initialize with comprehensive dummy data
+        const dummyActivities = [
+          {
+            id: 1,
+            title: 'DBT Awareness Workshop for Parents',
+            description: 'Interactive session explaining the importance of Aadhaar seeding for scholarship benefits.',
+            type: 'workshop',
+            school: 'Government High School, Delhi',
+            date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            time: '2:00 PM - 4:00 PM',
+            venue: 'School Auditorium',
+            organizer: 'Parent-Teacher Committee',
+            targetAudience: 'parents',
+            attendees: 45,
+            maxAttendees: 60,
+            registeredUsers: ['user1', 'user2', 'user3'],
+            objectives: [
+              'Understand the importance of DBT for scholarships',
+              'Learn how to check Aadhaar seeding status',
+              'Know the steps to enable DBT in bank accounts'
+            ],
+            agenda: [
+              { time: '2:00 PM', topic: 'Welcome & Introduction' },
+              { time: '2:15 PM', topic: 'What is DBT and why it matters' },
+              { time: '2:45 PM', topic: 'Aadhaar seeding process demonstration' },
+              { time: '3:15 PM', topic: 'Q&A Session' },
+              { time: '3:45 PM', topic: 'Next steps and resources' }
+            ],
+            resources: [
+              { name: 'DBT Guide.pdf', type: 'pdf', size: '2.5 MB' },
+              { name: 'Workshop Recording', type: 'video', size: '45 MB' },
+              { name: 'Aadhaar Seeding Checklist', type: 'pdf', size: '1.2 MB' }
+            ],
+            status: 'upcoming',
+            priority: 'high',
+            tags: ['DBT', 'Aadhaar', 'Parents', 'Scholarships'],
+            feedback: [
+              { user: 'Parent A', rating: 5, comment: 'Very informative session!' },
+              { user: 'Parent B', rating: 4, comment: 'Good content, could use more examples' }
+            ],
+            averageRating: 4.5,
+            photos: ['photo1.jpg', 'photo2.jpg'],
+            liveStream: null,
+            recordingUrl: 'https://example.com/recording1',
+            isActive: true,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          },
+          {
+            id: 2,
+            title: 'Student Digital Banking Awareness',
+            description: 'Teaching students about safe digital banking practices and scholarship account management.',
+            type: 'awareness',
+            school: 'Government Senior Secondary School, Mumbai',
+            date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            time: '10:00 AM - 12:00 PM',
+            venue: 'Computer Lab',
+            organizer: 'IT Department',
+            targetAudience: 'students',
+            attendees: 30,
+            maxAttendees: 40,
+            registeredUsers: [],
+            objectives: [
+              'Learn about digital banking safety',
+              'Understand scholarship disbursement process',
+              'Know how to track DBT payments'
+            ],
+            agenda: [
+              { time: '10:00 AM', topic: 'Digital Banking Basics' },
+              { time: '10:30 AM', topic: 'Scholarship Account Setup' },
+              { time: '11:00 AM', topic: 'Safety Tips and Best Practices' },
+              { time: '11:30 AM', topic: 'Hands-on Practice Session' }
+            ],
+            resources: [
+              { name: 'Digital Banking Safety Guide.pdf', type: 'pdf', size: '1.8 MB' },
+              { name: 'Scholarship Process Flowchart', type: 'image', size: '500 KB' }
+            ],
+            status: 'upcoming',
+            priority: 'medium',
+            tags: ['Digital Banking', 'Students', 'Safety', 'Scholarships'],
+            feedback: [],
+            averageRating: 0,
+            photos: [],
+            liveStream: null,
+            recordingUrl: null,
+            isActive: true,
+            createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+            updatedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+          },
+          {
+            id: 3,
+            title: 'Teacher Training on DBT Monitoring',
+            description: 'Training session for teachers to help students with DBT-related queries and scholarship tracking.',
+            type: 'training',
+            school: 'Government School, Bangalore',
+            date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            time: '9:00 AM - 1:00 PM',
+            venue: 'Staff Room',
+            organizer: 'Education Department',
+            targetAudience: 'teachers',
+            attendees: 25,
+            maxAttendees: 25,
+            registeredUsers: [],
+            objectives: [
+              'Understand DBT system for scholarships',
+              'Learn to assist students with queries',
+              'Know escalation procedures for issues'
+            ],
+            agenda: [
+              { time: '9:00 AM', topic: 'DBT System Overview' },
+              { time: '10:00 AM', topic: 'Common Student Issues' },
+              { time: '11:00 AM', topic: 'Resolution Procedures' },
+              { time: '12:00 PM', topic: 'Documentation and Reporting' }
+            ],
+            resources: [
+              { name: 'Teacher DBT Handbook.pdf', type: 'pdf', size: '3.2 MB' },
+              { name: 'Issue Resolution Flowchart', type: 'image', size: '750 KB' },
+              { name: 'Training Video', type: 'video', size: '120 MB' }
+            ],
+            status: 'completed',
+            priority: 'high',
+            tags: ['Teacher Training', 'DBT', 'Support', 'Education'],
+            feedback: [
+              { user: 'Teacher A', rating: 5, comment: 'Excellent training material!' },
+              { user: 'Teacher B', rating: 5, comment: 'Very helpful for student support' },
+              { user: 'Teacher C', rating: 4, comment: 'Good content, need more practical examples' }
+            ],
+            averageRating: 4.7,
+            photos: ['training1.jpg', 'training2.jpg'],
+            liveStream: null,
+            recordingUrl: 'https://example.com/teacher-training',
+            isActive: true,
+            createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
+            updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+          }
+        ];
+        
+        localStorage.setItem('schoolActivities', JSON.stringify(dummyActivities));
+        activities = dummyActivities;
+      } else {
+        try {
+          activities = JSON.parse(stored);
+          // Ensure activities have all required fields
+          activities = activities.map(activity => ({
+            ...activity,
+            objectives: activity.objectives || [],
+            agenda: activity.agenda || [],
+            resources: activity.resources || [],
+            tags: activity.tags || [],
+            feedback: activity.feedback || [],
+            averageRating: activity.averageRating || 0,
+            registeredUsers: activity.registeredUsers || [],
+            attendees: activity.attendees || 0
+          }));
+        } catch (error) {
+          console.error('Error parsing stored school activities:', error);
+          activities = [];
+        }
+      }
+      
+      const activeActivities = activities.filter(activity => activity.isActive);
+      setActivities(activeActivities);
+      setFilteredActivities(activeActivities);
+      setLastUpdate(new Date());
+    } catch (error) {
+      console.error('Error loading school activities:', error);
+      setActivities([]);
+      setFilteredActivities([]);
+    }
+  };
 
   useEffect(() => {
     let filtered = activities;
@@ -158,11 +329,40 @@ const SchoolActivities = () => {
   };
 
   const handleRegister = (activityId) => {
-    setActivities(prev => prev.map(activity => 
-      activity.id === activityId 
-        ? { ...activity, registeredUsers: [...activity.registeredUsers, 'currentUser'] }
-        : activity
-    ));
+    try {
+      const updatedActivities = activities.map(activity => 
+        activity.id === activityId 
+          ? { 
+              ...activity, 
+              registeredUsers: [...(activity.registeredUsers || []), 'currentUser'],
+              attendees: (activity.attendees || 0) + 1
+            }
+          : activity
+      );
+      
+      setActivities(updatedActivities);
+      localStorage.setItem('schoolActivities', JSON.stringify(updatedActivities));
+      
+      // Send real-time update
+      if (socketService.isConnected()) {
+        socketService.sendAdminContentUpdate({
+          type: 'SCHOOL_ACTIVITY_REGISTRATION',
+          activityId,
+          timestamp: new Date().toISOString()
+        });
+      }
+      
+      window.dispatchEvent(new CustomEvent('schoolActivityUpdate', {
+        detail: {
+          type: 'SCHOOL_ACTIVITY_REGISTRATION',
+          activityId,
+          timestamp: new Date().toISOString()
+        }
+      }));
+    } catch (error) {
+      console.error('Error registering for activity:', error);
+      alert('Error registering for activity. Please try again.');
+    }
   };
 
   const handleAddActivity = () => {
@@ -269,6 +469,29 @@ const SchoolActivities = () => {
             <p className="text-xl text-gray-600">
               {t('schoolActivities.subtitle', 'Participate in DBT awareness events and access educational resources')}
             </p>
+            
+            <div className="flex items-center space-x-4 mt-4">
+              <div className={`flex items-center space-x-2 px-3 py-1 rounded-full text-sm font-medium ${
+                isConnected 
+                  ? 'bg-green-100 text-green-800' 
+                  : 'bg-yellow-100 text-yellow-800'
+              }`}>
+                {isConnected ? <Wifi className="h-4 w-4" /> : <WifiOff className="h-4 w-4" />}
+                <span>{isConnected ? 'Live Updates' : 'Offline Mode'}</span>
+              </div>
+              {lastUpdate && (
+                <p className="text-sm text-gray-500">
+                  Last updated: {lastUpdate.toLocaleTimeString()}
+                </p>
+              )}
+              <button
+                onClick={loadSchoolActivities}
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-blue-700 transition-colors text-sm"
+              >
+                <RefreshCw className="h-4 w-4" />
+                <span>Refresh</span>
+              </button>
+            </div>
             
             <div className="flex space-x-6 mt-4">
               <div className="flex items-center space-x-2">

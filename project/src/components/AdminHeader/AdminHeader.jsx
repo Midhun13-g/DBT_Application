@@ -2,6 +2,7 @@ import React from 'react';
 import { LogOut, Shield, Settings, Search } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import NotificationBell from '../NotificationBell/NotificationBell';
+import SocketStatus from '../SocketStatus/SocketStatus';
 
 const AdminHeader = () => {
   const { user, logout } = useAuth();
@@ -32,6 +33,8 @@ const AdminHeader = () => {
             </div>
             
             <NotificationBell />
+            
+            <SocketStatus />
             
             <button className="p-2 text-blue-200 hover:text-white hover:bg-blue-800 rounded">
               <Settings className="h-5 w-5" />

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "New Digital India Initiative Launch",
+    "content": "Government launches new digital literacy program for rural areas. Free training sessions available for all citizens.",
+    "description": "This comprehensive program aims to bridge the digital divide by providing free computer and internet training to rural communities. Sessions include basic computer skills, online government services, and digital payment methods.",
+    "priority": "HIGH",
+    "category": "SCHEME",
+    "district": "All Districts",
+    "targetAudience": "ALL",
+    "author": "Digital India Team",
+    "validFrom": "2024-01-15T00:00:00.000Z",
+    "validUntil": "2024-02-15T00:00:00.000Z",
+    "contactInfo": "Call 1800-111-555 or visit nearest CSC center",
+    "attachmentUrl": "https://digitalindia.gov.in",
+    "tags": ["digital literacy", "training", "rural development"],
+    "isActive": true,
+    "isUrgent": false,
+    "requiresAction": true,
+    "createdAt": "2024-01-15T10:00:00.000Z"
+  }
+]

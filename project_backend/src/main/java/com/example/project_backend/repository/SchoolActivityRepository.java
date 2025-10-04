@@ -15,11 +15,14 @@ public interface SchoolActivityRepository extends JpaRepository<SchoolActivity, 
     
     Page<SchoolActivity> findByIsActiveTrueOrderByActivityDateDesc(Pageable pageable);
     
-    @Query("SELECT sa FROM SchoolActivity sa WHERE sa.isActive = true AND " +
-           "(:schoolName IS NULL OR sa.schoolName = :schoolName) AND " +
-           "(:type IS NULL OR sa.type = :type) AND " +
-           "sa.activityDate >= :fromDate " +
-           "ORDER BY sa.activityDate ASC")
+    @Query("""
+           SELECT sa FROM SchoolActivity sa 
+           WHERE sa.isActive = true 
+           AND (:schoolName IS NULL OR sa.schoolName = :schoolName) 
+           AND (:type IS NULL OR sa.type = :type) 
+           AND sa.activityDate >= :fromDate 
+           ORDER BY sa.activityDate ASC
+           """)
     Page<SchoolActivity> findUpcomingActivities(@Param("schoolName") String schoolName,
                                               @Param("type") SchoolActivity.ActivityType type,
                                               @Param("fromDate") LocalDateTime fromDate,

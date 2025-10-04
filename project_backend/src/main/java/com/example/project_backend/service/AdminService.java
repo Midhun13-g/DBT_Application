@@ -90,8 +90,8 @@ public class AdminService {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Delete user's bookings first
-        campBookingRepository.deleteByUserId(userId);
+        // Cancel user's bookings first
+        campBookingRepository.cancelBookingsByUserId(userId);
 
         // Delete user
         userRepository.delete(user);

@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Users, CheckCircle, Clock, Calendar } from 'lucide-react';
 import Card, { MetricCard } from '../../components/Card/Card';
 import Loader from '../../components/Loader/Loader';
+import { useAuth } from '../../context/AuthContext';
 
 const AdminDashboard = () => {
+  const { user } = useAuth();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Dashboard data
   const [dashboardData, setDashboardData] = useState({
@@ -15,15 +18,28 @@ const AdminDashboard = () => {
   });
 
   useEffect(() => {
-    // Simulate API call
     const fetchData = async () => {
-      setLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setLoading(false);
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Check if user is admin
+        if (!user || user.role !== 'admin') {
+          setError('Access denied. Admin privileges required.');
+          return;
+        }
+        
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load dashboard data');
+        setLoading(false);
+      }
     };
 
     fetchData();
-  }, []);
+  }, [user]);
 
   const metrics = [
     {
@@ -66,6 +82,20 @@ const AdminDashboard = () => {
     return (
       <div className="flex items-center justify-center py-12">
         <Loader size="lg" text="Loading dashboard data..." />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Card className="max-w-md mx-auto text-center">
+          <div className="text-red-600 mb-4">
+            <Clock className="h-12 w-12 mx-auto" />
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Error</h2>
+          <p className="text-gray-600">{error}</p>
+        </Card>
       </div>
     );
   }

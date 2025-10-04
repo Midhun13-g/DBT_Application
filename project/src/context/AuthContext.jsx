@@ -25,54 +25,92 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log('🔐 Attempting login for:', email);
       
-      const userData = {
-        id: 1,
-        email,
-        name: email === 'admin@dbt.gov.in' ? 'Admin User' : 'John Doe',
-        role: email === 'admin@dbt.gov.in' ? 'admin' : 'user',
-        phone: email === 'admin@dbt.gov.in' ? '9876543210' : '9876543211'
-      };
+      // Use API for authentication
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
       
-      setUser(userData);
-      localStorage.setItem('dbt_user', JSON.stringify(userData));
+      if (!response.ok) {
+        throw new Error('Authentication failed');
+      }
       
-      // Return user data with redirect info
+      const authData = await response.json();
+      const userSession = authData.user;
+      
+      console.log('🔍 Auth response:', authData);
+      console.log('👤 User session:', userSession);
+      console.log('🎯 User role:', userSession.role);
+      
+      setUser(userSession);
+      localStorage.setItem('dbt_user', JSON.stringify(userSession));
+      localStorage.setItem('auth_token', authData.token);
+      
+      // Initialize socket connection after login
+      try {
+        const { default: socketService } = await import('../services/socketService');
+        await socketService.connect();
+        socketService.registerUser({
+          userId: userSession.id,
+          role: userSession.role,
+          name: userSession.name
+        });
+        console.log('✅ Socket connection initialized for user:', userSession.role);
+      } catch (socketError) {
+        console.warn('⚠️ Socket connection failed:', socketError.message);
+      }
+      
+      const redirectPath = authData.redirectTo || (userSession.role === 'ADMIN' ? '/admin' : '/');
+      console.log('🚀 Redirect path:', redirectPath);
+      
       return {
-        ...userData,
-        redirectTo: userData.role === 'admin' ? '/admin' : '/'
+        ...userSession,
+        redirectTo: redirectPath
       };
     } catch (error) {
-      throw new Error('Login failed');
+      console.error('💥 Login error:', error.message);
+      throw error;
     }
   };
 
   const signup = async (name, email, password, phone) => {
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log('📝 Attempting signup for:', email);
       
-      const userData = {
-        id: Date.now(),
-        name,
-        email,
-        phone,
-        role: 'user'
-      };
+      // Use API for registration
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, password, phone })
+      });
       
-      setUser(userData);
-      localStorage.setItem('dbt_user', JSON.stringify(userData));
-      return userData;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Registration failed');
+      }
+      
+      const userData = await response.json();
+      
+      // Auto-login after successful registration
+      return await login(email, password);
     } catch (error) {
-      throw new Error('Signup failed');
+      console.error('💥 Signup error:', error.message);
+      throw error;
     }
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('dbt_user');
+    localStorage.removeItem('auth_token');
+    console.log('👋 User logged out');
   };
 
   const updateUser = (userData) => {
@@ -87,7 +125,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     updateUser,
     loading,
-    isAdmin: user?.role === 'admin'
+    isAdmin: user?.role === 'ADMIN' || user?.role === 'admin'
   };
 
   return (

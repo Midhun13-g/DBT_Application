@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "title": "DBT Awareness Workshop for Parents",
+    "description": "Interactive session explaining the importance of Aadhaar seeding for scholarship benefits.",
+    "type": "workshop",
+    "school": "Government High School, Delhi",
+    "date": "2024-01-22",
+    "time": "2:00 PM - 4:00 PM",
+    "venue": "School Auditorium",
+    "organizer": "Parent-Teacher Committee",
+    "targetAudience": "parents",
+    "attendees": 45,
+    "maxAttendees": 60,
+    "registeredUsers": ["user1", "user2", "user3"],
+    "objectives": [
+      "Understand the importance of DBT for scholarships",
+      "Learn how to check Aadhaar seeding status",
+      "Know the steps to enable DBT in bank accounts"
+    ],
+    "agenda": [
+      { "time": "2:00 PM", "topic": "Welcome & Introduction" },
+      { "time": "2:15 PM", "topic": "What is DBT and why it matters" },
+      { "time": "2:45 PM", "topic": "Aadhaar seeding process demonstration" },
+      { "time": "3:15 PM", "topic": "Q&A Session" },
+      { "time": "3:45 PM", "topic": "Next steps and resources" }
+    ],
+    "resources": [
+      { "name": "DBT Guide.pdf", "type": "pdf", "size": "2.5 MB" },
+      { "name": "Workshop Recording", "type": "video", "size": "45 MB" },
+      { "name": "Aadhaar Seeding Checklist", "type": "pdf", "size": "1.2 MB" }
+    ],
+    "status": "upcoming",
+    "priority": "high",
+    "tags": ["DBT", "Aadhaar", "Parents", "Scholarships"],
+    "feedback": [
+      { "user": "Parent A", "rating": 5, "comment": "Very informative session!" },
+      { "user": "Parent B", "rating": 4, "comment": "Good content, could use more examples" }
+    ],
+    "averageRating": 4.5,
+    "photos": ["photo1.jpg", "photo2.jpg"],
+    "liveStream": null,
+    "recordingUrl": "https://example.com/recording1",
+    "isActive": true,
+    "createdAt": "2024-01-15T10:00:00.000Z",
+    "updatedAt": "2024-01-15T10:00:00.000Z"
+  }
+]

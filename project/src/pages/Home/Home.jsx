@@ -20,6 +20,7 @@ import Chatbot from '../../components/Chatbot/Chatbot';
 import RoleDashboard from '../../components/RoleDashboard/RoleDashboard';
 import { useAuth } from '../../hooks/useAuth';
 import noticeService from '../../services/noticeService';
+import eventBus from '../../services/eventBus';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -30,6 +31,14 @@ const Home = () => {
 
   React.useEffect(() => {
     loadNotices();
+    
+    // Subscribe to real-time updates
+    const unsubscribe = eventBus.on('notices-updated', () => {
+      console.log('Home received notice update');
+      loadNotices();
+    });
+    
+    return unsubscribe;
   }, []);
 
   const loadNotices = () => {

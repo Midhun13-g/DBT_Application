@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, LogIn, AlertCircle } from 'lucide-react';
 import Card from '../../components/Card/Card';
 import Button from '../../components/Button/Button';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../context/AuthContext';
 import { validateEmail } from '../../utils/validations';
 
 const Login = () => {
@@ -67,7 +67,7 @@ const Login = () => {
       const result = await login(formData.email, formData.password);
       navigate(result.redirectTo || '/');
     } catch (error) {
-      setErrors({ submit: 'Invalid email or password. Please try again.' });
+      setErrors({ submit: error.message || 'Invalid email or password. Please try again.' });
     } finally {
       setLoading(false);
     }

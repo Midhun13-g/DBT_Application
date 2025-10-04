@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { 
   HelpCircle, 
@@ -12,17 +12,29 @@ import {
   ExternalLink,
   Phone,
   Mail,
-  MessageCircle
+  MessageCircle,
+  RefreshCw,
+  Wifi,
+  WifiOff,
+  Image,
+  Star,
+  Tag,
+  Eye
 } from 'lucide-react';
 import Card from '../../components/Card/Card';
 import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
+import socketService from '../../services/socketService';
+import dataService from '../../services/dataService';
 
 const Awareness = () => {
   const { t } = useTranslation();
   const [expandedFaq, setExpandedFaq] = useState(null);
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [awarenessContent, setAwarenessContent] = useState([]);
+  const [lastUpdate, setLastUpdate] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
 
   const faqs = [
     {
@@ -153,6 +165,166 @@ const Awareness = () => {
     }
   ];
 
+  useEffect(() => {
+    loadAwarenessContent();
+    
+    // Initialize socket connection
+    const initSocket = async () => {
+      try {
+        await socketService.connect();
+        const user = JSON.parse(localStorage.getItem('dbt_user') || '{}');
+        if (user.id) {
+          socketService.registerUser({
+            userId: user.id,
+            role: user.role || 'user',
+            name: user.name || 'User'
+          });
+        }
+        setIsConnected(true);
+      } catch (error) {
+        console.warn('Socket connection failed:', error);
+        setIsConnected(false);
+      }
+    };
+    
+    initSocket();
+    
+    // Listen for real-time content updates
+    const handleContentUpdate = (event) => {
+      console.log('📚 Awareness content update received:', event.detail);
+      loadAwarenessContent();
+    };
+    
+    window.addEventListener('contentUpdate', handleContentUpdate);
+    
+    // Check connection status periodically
+    const statusInterval = setInterval(() => {
+      setIsConnected(socketService.isConnected());
+    }, 3000);
+    
+    // Fallback polling for offline mode
+    const pollInterval = setInterval(() => {
+      if (!socketService.isConnected()) {
+        loadAwarenessContent();
+      }
+    }, 10000);
+    
+    return () => {
+      window.removeEventListener('contentUpdate', handleContentUpdate);
+      clearInterval(statusInterval);
+      clearInterval(pollInterval);
+    };
+  }, []);
+
+  const loadAwarenessContent = async () => {
+    try {
+      const dummyContent = [
+          {
+            id: 1,
+            title: 'Understanding Direct Benefit Transfer (DBT)',
+            content: 'DBT is a revolutionary system that ensures government benefits reach citizens directly without intermediaries.',
+            description: 'Learn how this transparent mechanism eliminates corruption and ensures timely delivery of subsidies and welfare payments to your bank account. This comprehensive guide covers all aspects of DBT implementation, benefits, and how it transforms the way government services are delivered to citizens.',
+            category: 'EDUCATION',
+            mediaType: 'ARTICLE',
+            targetAudience: 'ALL',
+            priority: 'HIGH',
+            tags: ['dbt', 'benefits', 'transparency', 'government'],
+            isActive: true,
+            isFeatured: true,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          },
+          {
+            id: 2,
+            title: 'Aadhaar Linking: Your Gateway to Benefits',
+            content: 'Discover why linking your Aadhaar with your bank account is crucial for receiving government benefits.',
+            description: 'This comprehensive guide explains the process, benefits, and common issues faced during Aadhaar seeding. Includes step-by-step instructions, troubleshooting tips, and answers to frequently asked questions about Aadhaar-bank account linking.',
+            category: 'FINANCE',
+            mediaType: 'VIDEO',
+            targetAudience: 'ALL',
+            priority: 'URGENT',
+            tags: ['aadhaar', 'banking', 'linking', 'seeding'],
+            videoUrl: 'https://youtube.com/watch?v=example-aadhaar-linking',
+            isActive: true,
+            isFeatured: false,
+            createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+            updatedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+          },
+          {
+            id: 3,
+            title: 'DBT Guidelines 2024 - Complete Manual',
+            content: 'Official government guidelines for Direct Benefit Transfer implementation and usage.',
+            description: 'Comprehensive PDF document containing all official guidelines, procedures, and best practices for DBT implementation across various government schemes. Essential reading for understanding the complete DBT ecosystem.',
+            category: 'GOVERNMENT',
+            mediaType: 'PDF',
+            targetAudience: 'ALL',
+            priority: 'NORMAL',
+            tags: ['guidelines', 'manual', 'official', 'pdf'],
+            pdfUrl: 'data:application/pdf;base64,sample-pdf-data-for-dbt-guidelines',
+            isActive: true,
+            isFeatured: true,
+            createdAt: new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString(),
+            updatedAt: new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString()
+          },
+          {
+            id: 4,
+            title: 'Digital Payment Safety Guidelines',
+            content: 'Stay safe while using digital payment methods and protect your financial information.',
+            description: 'Learn about secure online banking practices, how to identify fraud attempts, and protect your financial information in the digital age. Includes infographic with safety tips and best practices for digital transactions.',
+            category: 'TECHNOLOGY',
+            mediaType: 'INFOGRAPHIC',
+            targetAudience: 'ALL',
+            priority: 'HIGH',
+            tags: ['safety', 'digital payments', 'security', 'fraud prevention'],
+            imageUrl: 'https://example.com/digital-payment-safety-infographic.jpg',
+            isActive: true,
+            isFeatured: false,
+            createdAt: new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString(),
+            updatedAt: new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString()
+          },
+          {
+            id: 5,
+            title: 'Government Schemes and Eligibility',
+            content: 'Explore various government welfare schemes available for different sections of society.',
+            description: 'Understand eligibility criteria, application processes, and how to track your application status online. Complete guide covering pension schemes, healthcare benefits, education support, and employment programs.',
+            category: 'EDUCATION',
+            mediaType: 'ARTICLE',
+            targetAudience: 'ALL',
+            priority: 'NORMAL',
+            tags: ['schemes', 'eligibility', 'welfare', 'benefits'],
+            isActive: true,
+            isFeatured: false,
+            createdAt: new Date(Date.now() - 96 * 60 * 60 * 1000).toISOString(),
+            updatedAt: new Date(Date.now() - 96 * 60 * 60 * 1000).toISOString()
+          },
+          {
+            id: 6,
+            title: 'Mobile Banking Tutorial for Seniors',
+            content: 'Step-by-step video guide for senior citizens to use mobile banking safely and effectively.',
+            description: 'Specially designed tutorial for senior citizens covering smartphone basics, mobile banking app usage, security measures, and common troubleshooting. Includes large text and clear audio instructions.',
+            category: 'TECHNOLOGY',
+            mediaType: 'VIDEO',
+            targetAudience: 'SENIOR_CITIZENS',
+            priority: 'HIGH',
+            tags: ['mobile banking', 'seniors', 'tutorial', 'safety'],
+            videoUrl: 'https://youtube.com/watch?v=example-mobile-banking-seniors',
+            isActive: true,
+            isFeatured: true,
+            createdAt: new Date(Date.now() - 120 * 60 * 60 * 1000).toISOString(),
+            updatedAt: new Date(Date.now() - 120 * 60 * 60 * 1000).toISOString()
+          }
+        ];
+      
+      const content = await dataService.loadData('awarenessContent', dummyContent);
+      const activeContent = content.filter(item => item.isActive);
+      setAwarenessContent(activeContent);
+      setLastUpdate(new Date());
+    } catch (error) {
+      console.error('Error loading awareness content:', error);
+      setAwarenessContent([]);
+    }
+  };
+
   const toggleFaq = (faqId) => {
     setExpandedFaq(expandedFaq === faqId ? null : faqId);
   };
@@ -162,17 +334,59 @@ const Awareness = () => {
     setShowVideoModal(true);
   };
 
+  const getCategoryColor = (category) => {
+    switch (category) {
+      case 'EDUCATION': return 'bg-blue-100 text-blue-800';
+      case 'HEALTH': return 'bg-green-100 text-green-800';
+      case 'FINANCE': return 'bg-purple-100 text-purple-800';
+      case 'TECHNOLOGY': return 'bg-orange-100 text-orange-800';
+      case 'GOVERNMENT': return 'bg-indigo-100 text-indigo-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getMediaIcon = (mediaType) => {
+    switch (mediaType) {
+      case 'VIDEO': return Video;
+      case 'ARTICLE': return FileText;
+      case 'INFOGRAPHIC': return Image;
+      default: return BookOpen;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            {t('awareness.title')}
+            Awareness & Education
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t('awareness.subtitle')}
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-4">
+            Stay informed with the latest educational content and resources
           </p>
+          <div className="flex justify-center items-center space-x-4">
+            <div className={`flex items-center space-x-2 px-3 py-1 rounded-full text-sm font-medium ${
+              isConnected 
+                ? 'bg-green-100 text-green-800' 
+                : 'bg-yellow-100 text-yellow-800'
+            }`}>
+              {isConnected ? <Wifi className="h-4 w-4" /> : <WifiOff className="h-4 w-4" />}
+              <span>{isConnected ? 'Live Updates' : 'Offline Mode'}</span>
+            </div>
+            {lastUpdate && (
+              <p className="text-sm text-gray-500">
+                Last updated: {lastUpdate.toLocaleTimeString()}
+              </p>
+            )}
+            <button
+              onClick={loadAwarenessContent}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-blue-700 transition-colors text-sm"
+            >
+              <RefreshCw className="h-4 w-4" />
+              <span>Refresh</span>
+            </button>
+          </div>
         </div>
 
         {/* Key Benefits Section */}
@@ -289,11 +503,100 @@ const Awareness = () => {
           </div>
         </div>
 
+        {/* Dynamic Awareness Content */}
+        <div className="mt-12">
+          <Card>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+              Latest Educational Content
+            </h2>
+            {awarenessContent.length === 0 ? (
+              <div className="text-center py-12">
+                <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2">No content available</h3>
+                <p className="text-gray-500">Check back later for new educational resources.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {awarenessContent.map((item) => {
+                  const MediaIcon = getMediaIcon(item.mediaType);
+                  return (
+                    <div key={item.id} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="bg-blue-100 p-2 rounded-lg">
+                            <MediaIcon className="h-5 w-5 text-blue-600" />
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
+                              {item.title}
+                            </h3>
+                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getCategoryColor(item.category)}`}>
+                              {item.category}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <p className="text-gray-700 mb-4 line-clamp-4">
+                        {item.content}
+                      </p>
+                      
+                      <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-xs text-gray-500">
+                            {new Date(item.createdAt).toLocaleDateString('en-IN')}
+                          </span>
+                          <span className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">
+                            {item.mediaType}
+                          </span>
+                        </div>
+                        <div className="flex space-x-2">
+                          {item.mediaType === 'PDF' && item.pdfUrl && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                const link = document.createElement('a');
+                                link.href = item.pdfUrl;
+                                link.download = `${item.title}.pdf`;
+                                link.click();
+                              }}
+                              className="bg-red-600 text-white px-3 py-1 rounded-lg text-xs font-medium hover:bg-red-700 transition-colors flex items-center space-x-1"
+                            >
+                              <Download className="h-3 w-3" />
+                              <span>Download PDF</span>
+                            </button>
+                          )}
+                          {item.mediaType === 'VIDEO' && item.videoUrl && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(item.videoUrl, '_blank');
+                              }}
+                              className="bg-purple-600 text-white px-3 py-1 rounded-lg text-xs font-medium hover:bg-purple-700 transition-colors flex items-center space-x-1"
+                            >
+                              <Play className="h-3 w-3" />
+                              <span>Watch Video</span>
+                            </button>
+                          )}
+                          <button className="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors flex items-center space-x-1">
+                            <Eye className="h-3 w-3" />
+                            <span>Read More</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </Card>
+        </div>
+
         {/* Educational Videos */}
         <div className="mt-12">
           <Card>
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-              {t('awareness.videosTitle')}
+              Educational Videos
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {videos.map((video) => (

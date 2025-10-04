@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "title": "Understanding Direct Benefit Transfer (DBT)",
+    "content": "DBT is a revolutionary system that ensures government benefits reach citizens directly without intermediaries.",
+    "description": "Learn how this transparent mechanism eliminates corruption and ensures timely delivery of subsidies and welfare payments to your bank account. This comprehensive guide covers all aspects of DBT implementation, benefits, and how it transforms the way government services are delivered to citizens.",
+    "category": "EDUCATION",
+    "mediaType": "ARTICLE",
+    "targetAudience": "ALL",
+    "priority": "HIGH",
+    "tags": ["dbt", "benefits", "transparency", "government"],
+    "isActive": true,
+    "isFeatured": true,
+    "createdAt": "2024-01-15T10:00:00.000Z",
+    "updatedAt": "2024-01-15T10:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "title": "Aadhaar Linking: Your Gateway to Benefits",
+    "content": "Discover why linking your Aadhaar with your bank account is crucial for receiving government benefits.",
+    "description": "This comprehensive guide explains the process, benefits, and common issues faced during Aadhaar seeding. Includes step-by-step instructions, troubleshooting tips, and answers to frequently asked questions about Aadhaar-bank account linking.",
+    "category": "FINANCE",
+    "mediaType": "VIDEO",
+    "targetAudience": "ALL",
+    "priority": "URGENT",
+    "tags": ["aadhaar", "banking", "linking", "seeding"],
+    "videoUrl": "https://youtube.com/watch?v=example-aadhaar-linking",
+    "isActive": true,
+    "isFeatured": false,
+    "createdAt": "2024-01-14T10:00:00.000Z",
+    "updatedAt": "2024-01-14T10:00:00.000Z"
+  }
+]

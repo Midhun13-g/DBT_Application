@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByAadhaarNumber(String aadhaarNumber);
     Optional<User> findByApplicationId(String applicationId);
     
-    @Query("SELECT u FROM User u WHERE u.name LIKE %:search% OR u.email LIKE %:search% OR u.phone LIKE %:search%")
+    @Query("SELECT u FROM User u WHERE u.name LIKE CONCAT('%', :search, '%') OR u.email LIKE CONCAT('%', :search, '%') OR u.phone LIKE CONCAT('%', :search, '%')")
     Page<User> findBySearchTerm(@Param("search") String search, Pageable pageable);
     
     @Query("SELECT u FROM User u WHERE u.dbtStatus = :status")

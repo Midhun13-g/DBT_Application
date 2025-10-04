@@ -10,11 +10,33 @@ export const validatePhone = (phone) => {
 };
 
 export const validatePassword = (password) => {
-  return password.length >= 8;
+  if (!password || password.length < 8) return false;
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasNumbers = /\d/.test(password);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+  return hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar;
 };
 
 export const validateName = (name) => {
-  return name.trim().length >= 2;
+  if (!name) return false;
+  const sanitized = name.trim().replace(/[<>"'&]/g, '');
+  return sanitized.length >= 2 && sanitized.length <= 50;
+};
+
+export const sanitizeInput = (input) => {
+  if (typeof input !== 'string') return '';
+  return input.replace(/[<>"'&]/g, '').trim();
+};
+
+export const validateAadhaar = (aadhaar) => {
+  const aadhaarRegex = /^[0-9]{4}$/;
+  return aadhaarRegex.test(aadhaar);
+};
+
+export const validateApplicationId = (appId) => {
+  const appIdRegex = /^[A-Za-z0-9]{6,20}$/;
+  return appIdRegex.test(appId);
 };
 
 export const getValidationErrors = (formData) => {
@@ -29,7 +51,7 @@ export const getValidationErrors = (formData) => {
   }
   
   if (formData.password && !validatePassword(formData.password)) {
-    errors.password = 'Password must be at least 8 characters long';
+    errors.password = 'Password must be at least 8 characters with uppercase, lowercase, number and special character';
   }
   
   if (formData.name && !validateName(formData.name)) {

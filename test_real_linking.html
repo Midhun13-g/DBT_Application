@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Real Linking</title>
+</head>
+<body>
+    <h1>Test Notice Board Linking</h1>
+    
+    <h2>1. Test Admin Notice Board → User Notice Board</h2>
+    <button onclick="testNoticeFlow()">Test Notice Flow</button>
+    <div id="noticeTest"></div>
+    
+    <h2>2. Test Admin Events → User Events</h2>
+    <button onclick="testEventFlow()">Test Event Flow</button>
+    <div id="eventTest"></div>
+    
+    <h2>3. View Current Data</h2>
+    <button onclick="viewCurrentData()">View All Data</button>
+    <div id="currentData"></div>
+
+    <script>
+        function testNoticeFlow() {
+            console.log('🧪 TESTING NOTICE FLOW');
+            
+            // Step 1: Admin saves notice
+            const notices = JSON.parse(localStorage.getItem('notices') || '[]');
+            const testNotice = {
+                id: Date.now(),
+                title: 'Test Admin Notice',
+                content: 'This notice was created by admin',
+                type: 'GENERAL',
+                priority: 'HIGH',
+                district: 'Delhi',
+                isActive: true,
+                createdAt: new Date().toISOString(),
+                author: 'Test Admin'
+            };
+            notices.unshift(testNotice);
+            localStorage.setItem('notices', JSON.stringify(notices));
+            console.log('✅ Admin saved notice to "notices" key');
+            
+            // Step 2: User reads notices
+            const userNotices = JSON.parse(localStorage.getItem('notices') || '[]');
+            const activeNotices = userNotices.filter(n => n.isActive);
+            console.log('✅ User read from "notices" key:', activeNotices.length, 'active notices');
+            
+            document.getElementById('noticeTest').innerHTML = `
+                <p>✅ Admin saved: ${notices.length} total notices</p>
+                <p>✅ User sees: ${activeNotices.length} active notices</p>
+                <p>Latest notice: "${testNotice.title}"</p>
+            `;
+        }
+
+        function testEventFlow() {
+            console.log('🧪 TESTING EVENT FLOW');
+            
+            // Step 1: Admin saves event
+            const events = JSON.parse(localStorage.getItem('events') || '[]');
+            const testEvent = {
+                id: Date.now(),
+                title: 'Test Admin Event',
+                description: 'This event was created by admin',
+                actionType: 'DIGITAL_LITERACY',
+                targetAudience: 'ALL',
+                district: 'Delhi',
+                venue: 'Test Center',
+                isActive: true,
+                createdAt: new Date().toISOString()
+            };
+            events.unshift(testEvent);
+            localStorage.setItem('events', JSON.stringify(events));
+            console.log('✅ Admin saved event to "events" key');
+            
+            // Step 2: User reads events
+            const userEvents = JSON.parse(localStorage.getItem('events') || '[]');
+            const activeEvents = userEvents.filter(e => e.isActive);
+            console.log('✅ User read from "events" key:', activeEvents.length, 'active events');
+            
+            document.getElementById('eventTest').innerHTML = `
+                <p>✅ Admin saved: ${events.length} total events</p>
+                <p>✅ User sees: ${activeEvents.length} active events</p>
+                <p>Latest event: "${testEvent.title}"</p>
+            `;
+        }
+
+        function viewCurrentData() {
+            const notices = JSON.parse(localStorage.getItem('notices') || '[]');
+            const events = JSON.parse(localStorage.getItem('events') || '[]');
+            
+            document.getElementById('currentData').innerHTML = `
+                <h3>Current localStorage Data:</h3>
+                <p><strong>notices</strong> key: ${notices.length} items</p>
+                <p><strong>events</strong> key: ${events.length} items</p>
+                <pre>${JSON.stringify({notices, events}, null, 2)}</pre>
+            `;
+        }
+
+        // Auto-run on load
+        window.onload = function() {
+            viewCurrentData();
+        };
+    </script>
+</body>
+</html>

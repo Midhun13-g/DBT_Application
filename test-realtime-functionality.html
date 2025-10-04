@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBT Real-time Test</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .admin { background-color: #f0f8ff; }
+        .user { background-color: #f0fff0; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        .log { background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 3px; font-family: monospace; }
+        .status { padding: 5px 10px; border-radius: 3px; color: white; }
+        .connected { background-color: green; }
+        .disconnected { background-color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 DBT Application Real-time Test</h1>
+        
+        <div class="section">
+            <h3>Connection Status</h3>
+            <div id="status" class="status disconnected">Disconnected</div>
+            <button onclick="connectSocket()">Connect</button>
+            <button onclick="disconnectSocket()">Disconnect</button>
+        </div>
+
+        <div class="section admin">
+            <h3>👨‍💼 Admin Actions</h3>
+            <button onclick="registerAsAdmin()">Register as Admin</button>
+            <button onclick="sendNoticeUpdate()">Send Notice Update</button>
+            <button onclick="sendContentUpdate()">Send Content Update</button>
+            <button onclick="sendEventUpdate()">Send Event Update</button>
+        </div>
+
+        <div class="section user">
+            <h3>👤 User Actions</h3>
+            <button onclick="registerAsUser()">Register as User</button>
+            <button onclick="sendUserActivity()">Send User Activity</button>
+        </div>
+
+        <div class="section">
+            <h3>📋 Event Log</h3>
+            <div id="log"></div>
+            <button onclick="clearLog()">Clear Log</button>
+        </div>
+    </div>
+
+    <script>
+        let socket = null;
+        let currentRole = null;
+
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `<div class="log">[${timestamp}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function updateStatus(connected) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = connected ? 'Connected' : 'Disconnected';
+            statusDiv.className = `status ${connected ? 'connected' : 'disconnected'}`;
+        }
+
+        function connectSocket() {
+            if (socket) {
+                log('⚠️ Socket already connected');
+                return;
+            }
+
+            socket = io('http://localhost:3001');
+
+            socket.on('connect', () => {
+                log('✅ Connected to Socket.IO server');
+                updateStatus(true);
+            });
+
+            socket.on('disconnect', () => {
+                log('❌ Disconnected from Socket.IO server');
+                updateStatus(false);
+            });
+
+            socket.on('registration_confirmed', (data) => {
+                log(`✅ Registration confirmed: ${JSON.stringify(data)}`);
+            });
+
+            socket.on('notice_update', (data) => {
+                log(`📢 Received notice update: ${JSON.stringify(data)}`);
+            });
+
+            socket.on('content_update', (data) => {
+                log(`📚 Received content update: ${JSON.stringify(data)}`);
+            });
+
+            socket.on('event_update', (data) => {
+                log(`📅 Received event update: ${JSON.stringify(data)}`);
+            });
+
+            socket.on('user_activity_update', (data) => {
+                log(`👥 Received user activity: ${JSON.stringify(data)}`);
+            });
+
+            socket.on('connect_error', (error) => {
+                log(`❌ Connection error: ${error.message}`);
+                updateStatus(false);
+            });
+        }
+
+        function disconnectSocket() {
+            if (socket) {
+                socket.disconnect();
+                socket = null;
+                currentRole = null;
+                updateStatus(false);
+                log('🔌 Disconnected from server');
+            }
+        }
+
+        function registerAsAdmin() {
+            if (!socket) {
+                log('❌ Not connected to server');
+                return;
+            }
+            
+            currentRole = 'admin';
+            socket.emit('user_register', {
+                userId: 'admin_test',
+                role: 'admin',
+                name: 'Test Admin'
+            });
+            log('👨‍💼 Registered as Admin');
+        }
+
+        function registerAsUser() {
+            if (!socket) {
+                log('❌ Not connected to server');
+                return;
+            }
+            
+            currentRole = 'user';
+            socket.emit('user_register', {
+                userId: 'user_test',
+                role: 'user',
+                name: 'Test User'
+            });
+            log('👤 Registered as User');
+        }
+
+        function sendNoticeUpdate() {
+            if (!socket || currentRole !== 'admin') {
+                log('❌ Must be connected as admin');
+                return;
+            }
+
+            const noticeData = {
+                notice: {
+                    id: Date.now(),
+                    title: 'Test Notice',
+                    content: 'This is a test notice from admin',
+                    createdAt: new Date().toISOString()
+                },
+                action: 'create',
+                adminId: 'admin_test',
+                timestamp: Date.now()
+            };
+
+            socket.emit('admin_notice_update', noticeData);
+            log('📢 Sent notice update to users');
+        }
+
+        function sendContentUpdate() {
+            if (!socket || currentRole !== 'admin') {
+                log('❌ Must be connected as admin');
+                return;
+            }
+
+            const contentData = {
+                content: {
+                    id: Date.now(),
+                    title: 'Test Content',
+                    description: 'This is test content from admin'
+                },
+                action: 'create',
+                adminId: 'admin_test',
+                timestamp: Date.now()
+            };
+
+            socket.emit('admin_content_update', contentData);
+            log('📚 Sent content update to users');
+        }
+
+        function sendEventUpdate() {
+            if (!socket || currentRole !== 'admin') {
+                log('❌ Must be connected as admin');
+                return;
+            }
+
+            const eventData = {
+                event: {
+                    id: Date.now(),
+                    title: 'Test Event',
+                    date: new Date().toISOString()
+                },
+                action: 'create',
+                adminId: 'admin_test',
+                timestamp: Date.now()
+            };
+
+            socket.emit('admin_event_update', eventData);
+            log('📅 Sent event update to users');
+        }
+
+        function sendUserActivity() {
+            if (!socket || currentRole !== 'user') {
+                log('❌ Must be connected as user');
+                return;
+            }
+
+            const activityData = {
+                userId: 'user_test',
+                activity: 'viewed_notice_board',
+                timestamp: Date.now()
+            };
+
+            socket.emit('user_activity', activityData);
+            log('👥 Sent user activity to admins');
+        }
+
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+
+        // Auto-connect on page load
+        window.onload = () => {
+            log('🚀 DBT Real-time Test Page Loaded');
+            log('📋 Instructions:');
+            log('1. Click "Connect" to connect to Socket.IO server');
+            log('2. Register as Admin or User');
+            log('3. Send messages and watch them appear in real-time');
+            log('4. Open this page in multiple tabs to test real-time communication');
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Add Content</title>
+</head>
+<body>
+    <h1>Test Adding Content</h1>
+    
+    <h2>1. Add Test Notice</h2>
+    <button onclick="addNotice()">Add Notice</button>
+    <div id="noticeResult"></div>
+    
+    <h2>2. Add Test Event</h2>
+    <button onclick="addEvent()">Add Event</button>
+    <div id="eventResult"></div>
+    
+    <h2>3. View All Data</h2>
+    <button onclick="viewAll()">View All</button>
+    <div id="allData"></div>
+
+    <script>
+        function addNotice() {
+            const notices = JSON.parse(localStorage.getItem('notices') || '[]');
+            const newNotice = {
+                id: Date.now(),
+                title: `Test Notice ${new Date().toLocaleTimeString()}`,
+                content: 'This is a test notice',
+                type: 'GENERAL',
+                priority: 'MEDIUM',
+                district: 'Delhi',
+                isActive: true,
+                createdAt: new Date().toISOString(),
+                author: 'Test Admin'
+            };
+            notices.unshift(newNotice);
+            localStorage.setItem('notices', JSON.stringify(notices));
+            document.getElementById('noticeResult').innerHTML = `✅ Added notice. Total: ${notices.length}`;
+        }
+
+        function addEvent() {
+            const events = JSON.parse(localStorage.getItem('events') || '[]');
+            const newEvent = {
+                id: Date.now(),
+                title: `Test Event ${new Date().toLocaleTimeString()}`,
+                description: 'This is a test event',
+                actionType: 'DIGITAL_LITERACY',
+                targetAudience: 'ALL',
+                district: 'Delhi',
+                venue: 'Test Center',
+                actionDate: '2024-02-15T10:00',
+                durationHours: 2,
+                maxParticipants: 50,
+                currentParticipants: 0,
+                isActive: true,
+                isFeatured: false,
+                createdAt: new Date().toISOString()
+            };
+            events.unshift(newEvent);
+            localStorage.setItem('events', JSON.stringify(events));
+            document.getElementById('eventResult').innerHTML = `✅ Added event. Total: ${events.length}`;
+        }
+
+        function viewAll() {
+            const notices = JSON.parse(localStorage.getItem('notices') || '[]');
+            const events = JSON.parse(localStorage.getItem('events') || '[]');
+            document.getElementById('allData').innerHTML = `
+                <h3>Notices: ${notices.length}</h3>
+                <pre>${JSON.stringify(notices, null, 2)}</pre>
+                <h3>Events: ${events.length}</h3>
+                <pre>${JSON.stringify(events, null, 2)}</pre>
+            `;
+        }
+
+        // Auto-load on page load
+        window.onload = viewAll;
+    </script>
+</body>
+</html>

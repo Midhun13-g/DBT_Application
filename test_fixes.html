@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LocalStorage Test - DBT Application</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        button { margin: 5px; padding: 10px; }
+        pre { background: #f5f5f5; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>DBT Application - LocalStorage Test</h1>
+    
+    <div class="test-section">
+        <h2>1. Clear All Data</h2>
+        <button onclick="clearAllData()">Clear All LocalStorage</button>
+        <div id="clearResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test Community Events</h2>
+        <button onclick="addTestCommunityEvent()">Add Test Community Event</button>
+        <button onclick="viewCommunityEvents()">View Community Events</button>
+        <div id="communityResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Test Notice Board</h2>
+        <button onclick="addTestNotice()">Add Test Notice</button>
+        <button onclick="viewNotices()">View Notices</button>
+        <div id="noticeResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Real-time Sync Test</h2>
+        <button onclick="startSyncTest()">Start Sync Test</button>
+        <button onclick="stopSyncTest()">Stop Sync Test</button>
+        <div id="syncResult"></div>
+    </div>
+
+    <script>
+        let syncInterval;
+
+        function clearAllData() {
+            localStorage.removeItem('communityActions');
+            localStorage.removeItem('noticeBoard');
+            document.getElementById('clearResult').innerHTML = 
+                '<span class="success">✅ All localStorage data cleared</span>';
+        }
+
+        function addTestCommunityEvent() {
+            const events = JSON.parse(localStorage.getItem('communityActions') || '[]');
+            const newEvent = {
+                id: Date.now(),
+                title: `Test Event ${new Date().toLocaleTimeString()}`,
+                description: 'This is a test community event created from the test script',
+                actionType: 'DIGITAL_LITERACY',
+                targetAudience: 'ALL',
+                district: 'Delhi',
+                venue: 'Test Community Center',
+                actionDate: new Date(Date.now() + 86400000).toISOString().slice(0, 16),
+                durationHours: 2,
+                maxParticipants: 50,
+                currentParticipants: 0,
+                contactPerson: 'Test Officer',
+                contactPhone: '+91-9876543210',
+                contactEmail: 'test@example.com',
+                registrationRequired: true,
+                isActive: true,
+                isFeatured: false,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            events.unshift(newEvent);
+            localStorage.setItem('communityActions', JSON.stringify(events));
+            
+            document.getElementById('communityResult').innerHTML = 
+                `<span class="success">✅ Added community event. Total: ${events.length}</span>`;
+        }
+
+        function viewCommunityEvents() {
+            const events = JSON.parse(localStorage.getItem('communityActions') || '[]');
+            document.getElementById('communityResult').innerHTML = 
+                `<span class="info">📊 Community Events: ${events.length}</span>
+                <pre>${JSON.stringify(events, null, 2)}</pre>`;
+        }
+
+        function addTestNotice() {
+            const notices = JSON.parse(localStorage.getItem('noticeBoard') || '[]');
+            const newNotice = {
+                id: Date.now(),
+                title: `Test Notice ${new Date().toLocaleTimeString()}`,
+                content: 'This is a test notice created from the test script',
+                type: 'GENERAL',
+                priority: 'MEDIUM',
+                district: 'Delhi',
+                eventDate: new Date(Date.now() + 86400000).toISOString(),
+                isActive: true,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                views: 0,
+                author: 'Test Admin'
+            };
+            notices.unshift(newNotice);
+            localStorage.setItem('noticeBoard', JSON.stringify(notices));
+            
+            document.getElementById('noticeResult').innerHTML = 
+                `<span class="success">✅ Added notice. Total: ${notices.length}</span>`;
+        }
+
+        function viewNotices() {
+            const notices = JSON.parse(localStorage.getItem('noticeBoard') || '[]');
+            document.getElementById('noticeResult').innerHTML = 
+                `<span class="info">📊 Notices: ${notices.length}</span>
+                <pre>${JSON.stringify(notices, null, 2)}</pre>`;
+        }
+
+        function startSyncTest() {
+            let counter = 0;
+            syncInterval = setInterval(() => {
+                counter++;
+                const events = JSON.parse(localStorage.getItem('communityActions') || '[]');
+                const notices = JSON.parse(localStorage.getItem('noticeBoard') || '[]');
+                
+                document.getElementById('syncResult').innerHTML = 
+                    `<span class="info">🔄 Sync Test #${counter} - Events: ${events.length}, Notices: ${notices.length}</span>
+                    <br><small>Last check: ${new Date().toLocaleTimeString()}</small>`;
+            }, 1000);
+        }
+
+        function stopSyncTest() {
+            if (syncInterval) {
+                clearInterval(syncInterval);
+                document.getElementById('syncResult').innerHTML += 
+                    '<br><span class="success">✅ Sync test stopped</span>';
+            }
+        }
+
+        // Auto-load current data on page load
+        window.onload = function() {
+            viewCommunityEvents();
+            viewNotices();
+        };
+    </script>
+</body>
+</html>

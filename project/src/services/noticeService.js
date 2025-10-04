@@ -1,4 +1,5 @@
 import api from './api';
+import eventBus from './eventBus';
 
 const NOTICE_STORAGE_KEY = 'noticeBoard';
 
@@ -14,10 +15,12 @@ class NoticeService {
     }
   }
 
-  // Save notices to localStorage
+  // Save notices to localStorage and emit update
   saveNoticesToStorage(notices) {
     try {
       localStorage.setItem(NOTICE_STORAGE_KEY, JSON.stringify(notices));
+      // Emit real-time update
+      eventBus.emit('notices-updated', notices);
       return true;
     } catch (error) {
       console.error('Error saving notices to localStorage:', error);

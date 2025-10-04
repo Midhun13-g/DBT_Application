@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Users, CheckCircle, Clock, Calendar, TrendingUp, AlertTriangle, Activity } from 'lucide-react';
 import Card, { MetricCard } from '../../components/Card/Card';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import SocketTestPanel from '../../components/SocketTestPanel/SocketTestPanel';
 
 const AdminOverview = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -152,6 +153,9 @@ const AdminOverview = () => {
           </div>
         </Card>
       </div>
+
+      {/* Socket Test Panel */}
+      <SocketTestPanel />
 
       {/* Recent Activity & Alerts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

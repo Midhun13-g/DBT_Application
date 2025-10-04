@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "title": "Digital Literacy Workshop for Senior Citizens",
+    "description": "Learn basic computer skills, internet usage, and digital payment methods in this comprehensive workshop.",
+    "detailedDescription": "This workshop is specially designed for senior citizens to help them navigate the digital world confidently. Sessions cover smartphone usage, online banking, government e-services, video calling with family, and staying safe online.",
+    "actionType": "DIGITAL_LITERACY",
+    "targetAudience": "SENIOR_CITIZENS",
+    "district": "Delhi",
+    "venue": "Community Center",
+    "venueAddress": "Sector 15, Dwarka, New Delhi - 110075",
+    "actionDate": "2024-01-22T14:00:00.000Z",
+    "registrationDeadline": "2024-01-18T23:59:59.000Z",
+    "durationHours": 4,
+    "maxParticipants": 30,
+    "registrationFee": 0,
+    "contactPerson": "Mrs. Priya Sharma",
+    "contactPhone": "+91-9876543210",
+    "contactEmail": "priya.sharma@digitalindia.gov.in",
+    "requirements": "No prior computer knowledge required. Bring a valid ID proof for registration.",
+    "benefits": "Certificate of completion, free learning materials, ongoing support for 3 months.",
+    "agenda": "10:00 AM - Introduction to computers\n11:00 AM - Internet basics\n12:00 PM - Digital payments\n1:00 PM - Q&A and practice session",
+    "tags": ["digital literacy", "senior citizens", "free workshop"],
+    "isActive": true,
+    "isFeatured": true,
+    "requiresRegistration": true,
+    "createdAt": "2024-01-15T10:00:00.000Z",
+    "currentParticipants": 0,
+    "registeredParticipants": []
+  }
+]

@@ -9,7 +9,7 @@ const AdminSidebar = () => {
     { name: 'Awareness Materials', href: '/admin/awareness', icon: BookOpen },
     { name: 'School Activities', href: '/admin/school-activities', icon: School },
     { name: 'Notice Board', href: '/admin/notice-board', icon: Megaphone },
-    { name: 'Community Actions', href: '/admin/events', icon: UserCheck },
+    { name: 'Community Events', href: '/admin/community-events', icon: Calendar },
     { name: 'Access Logs', href: '/admin/logs', icon: Activity },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
   ];

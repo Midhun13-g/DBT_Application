@@ -1,37 +1,36 @@
 import { apiService } from './api';
 
+const sanitizeInput = (input) => {
+  if (typeof input !== 'string') return '';
+  return input.replace(/[<>"'&]/g, '');
+};
+
 export const authService = {
   async login(email, password) {
-    // For demo purposes, simulate API call
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email === 'admin@dbt.gov.in' && password === 'admin123') {
-          resolve({
-            user: { id: 1, email, name: 'Admin User', role: 'admin' },
-            token: 'mock-admin-token'
-          });
-        } else if (password === 'password') {
-          resolve({
-            user: { id: 2, email, name: 'Regular User', role: 'user' },
-            token: 'mock-user-token'
-          });
-        } else {
-          reject(new Error('Invalid credentials'));
-        }
-      }, 1000);
-    });
+    try {
+      const sanitizedEmail = sanitizeInput(email);
+      const response = await apiService.post('/auth/login', {
+        email: sanitizedEmail,
+        password
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error('Authentication failed');
+    }
   },
 
   async signup(userData) {
-    // For demo purposes, simulate API call
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          user: { ...userData, id: Date.now(), role: 'user' },
-          token: 'mock-user-token'
-        });
-      }, 1000);
-    });
+    try {
+      const sanitizedData = {
+        ...userData,
+        email: sanitizeInput(userData.email),
+        name: sanitizeInput(userData.name)
+      };
+      const response = await apiService.post('/auth/signup', sanitizedData);
+      return response.data;
+    } catch (error) {
+      throw new Error('Registration failed');
+    }
   },
 
   async logout() {

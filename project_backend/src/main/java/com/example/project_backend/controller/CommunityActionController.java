@@ -2,6 +2,7 @@ package com.example.project_backend.controller;
 
 import com.example.project_backend.entity.CommunityAction;
 import com.example.project_backend.service.CommunityActionService;
+import com.example.project_backend.service.WebSocketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class CommunityActionController {
 
     private final CommunityActionService communityActionService;
+    private final WebSocketService webSocketService;
 
     @GetMapping
     public ResponseEntity<Page<CommunityAction>> getAllActions(
@@ -40,18 +42,22 @@ public class CommunityActionController {
     @PostMapping
     public ResponseEntity<CommunityAction> createAction(@RequestBody CommunityAction action) {
         CommunityAction savedAction = communityActionService.createAction(action);
+        webSocketService.broadcastCommunityActionUpdate(savedAction, "CREATE");
         return ResponseEntity.ok(savedAction);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CommunityAction> updateAction(@PathVariable Long id, @RequestBody CommunityAction action) {
         CommunityAction updatedAction = communityActionService.updateAction(id, action);
+        webSocketService.broadcastCommunityActionUpdate(updatedAction, "UPDATE");
         return ResponseEntity.ok(updatedAction);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAction(@PathVariable Long id) {
+        CommunityAction action = communityActionService.getActionById(id);
         communityActionService.deleteAction(id);
+        webSocketService.broadcastCommunityActionUpdate(action, "DELETE");
         return ResponseEntity.ok().build();
     }
 
@@ -69,6 +75,7 @@ public class CommunityActionController {
     @PostMapping("/{id}/register")
     public ResponseEntity<CommunityAction> registerParticipant(@PathVariable Long id) {
         CommunityAction action = communityActionService.registerParticipant(id);
+        webSocketService.broadcastCommunityActionUpdate(action, "REGISTER");
         return ResponseEntity.ok(action);
     }
 }
