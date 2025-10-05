@@ -212,39 +212,23 @@ const Home = () => {
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              DBT vs Aadhaar Seeding: Key Differences
+              What is DBT and What is Aadhaar Seeding?
             </h2>
-            <div className="relative">
-              <img 
-                src="https://soft-techsolutions.com/assets/img/Banner-of-aadhaar-deeding.png" 
-                alt="DBT Aadhaar Seeding Process" 
-                className="w-full rounded-lg"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-40 rounded-lg flex items-center justify-center">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto px-4">
-                  <div className="bg-white bg-opacity-90 p-4 rounded-lg border-l-4 border-blue-500">
-                    <h3 className="text-lg font-semibold text-blue-900 mb-2">DBT (Direct Benefit Transfer)</h3>
-                    <ul className="text-gray-800 space-y-1 text-sm text-left">
-                      <li>• Government payment system</li>
-                      <li>• Transfers subsidies directly to bank accounts</li>
-                      <li>• Eliminates middlemen and corruption</li>
-                      <li>• Covers scholarships, pensions, subsidies</li>
-                      <li>• Real-time transaction tracking</li>
-                    </ul>
-                  </div>
-                  <div className="bg-white bg-opacity-90 p-4 rounded-lg border-l-4 border-green-500">
-                    <h3 className="text-lg font-semibold text-green-900 mb-2">Aadhaar Seeding</h3>
-                    <ul className="text-gray-800 space-y-1 text-sm text-left">
-                      <li>• Process of linking Aadhaar with bank account</li>
-                      <li>• One-time setup requirement</li>
-                      <li>• Enables DBT functionality</li>
-                      <li>• Ensures accurate beneficiary identification</li>
-                      <li>• Mandatory for receiving government benefits</li>
-                    </ul>
-                  </div>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-6">
+              <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                <h3 className="text-lg font-semibold text-blue-900 mb-2">What is DBT?</h3>
+                <p className="text-gray-700">Direct Benefit Transfer is a government system that transfers subsidies and benefits directly to beneficiaries' bank accounts.</p>
+              </div>
+              <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                <h3 className="text-lg font-semibold text-green-900 mb-2">What is Aadhaar Seeding?</h3>
+                <p className="text-gray-700">Aadhaar Seeding is the process of linking your Aadhaar number with your bank account to enable DBT services.</p>
               </div>
             </div>
+            <img 
+              src="https://soft-techsolutions.com/assets/img/Banner-of-aadhaar-deeding.png" 
+              alt="DBT Aadhaar Seeding Process" 
+              className="w-full rounded-lg shadow-lg"
+            />
           </div>
 
           {/* Simple Content Cards */}

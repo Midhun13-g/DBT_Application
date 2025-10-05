@@ -132,6 +132,14 @@ const Awareness = () => {
 
   const resources = [
     {
+      title: "PFMS Validation & Payment Rejection Remedies",
+      type: "PDF",
+      size: "1.5 MB",
+      icon: FileText,
+      description: "Official PFMS guide for validation and payment rejection solutions",
+      url: "https://pfms.nic.in/sitePages/doc/PFMS_Validation_Payment_Rejection_Remedies.pdf"
+    },
+    {
       title: "DBT Guidelines 2024",
       type: "PDF",
       size: "2.5 MB",
@@ -144,13 +152,6 @@ const Awareness = () => {
       size: "1.2 MB",
       icon: FileText,
       description: "Informational poster about Aadhaar-bank account linking"
-    },
-    {
-      title: "DBT Scheme List",
-      type: "Excel",
-      size: "850 KB",
-      icon: FileText,
-      description: "List of all government schemes using DBT mechanism"
     },
     {
       title: "Troubleshooting Guide",
@@ -698,7 +699,15 @@ const Awareness = () => {
                         <span>{resource.size}</span>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm" icon={Download}>
+                    <Button variant="outline" size="sm" icon={Download} onClick={() => {
+                      if (resource.url) {
+                        const link = document.createElement('a');
+                        link.href = resource.url;
+                        link.target = '_blank';
+                        link.rel = 'noopener noreferrer';
+                        link.click();
+                      }
+                    }}>
                       Download
                     </Button>
                   </div>

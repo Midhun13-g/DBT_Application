@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import AppRoutes from './routes/AppRoutes';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import Chatbot from './components/Chatbot/Chatbot';
 
 import './i18n/i18n';
 
@@ -30,6 +31,7 @@ function AppContent() {
         <AppRoutes />
       </main>
       <Footer />
+      <Chatbot />
     </div>
   );
 }
