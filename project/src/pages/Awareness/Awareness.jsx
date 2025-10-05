@@ -85,28 +85,48 @@ const Awareness = () => {
       title: "Understanding DBT - Complete Overview",
       duration: "8:45",
       thumbnail: "https://images.pexels.com/photos/5473955/pexels-photo-5473955.jpeg?auto=compress&cs=tinysrgb&w=400",
-      description: "Learn about the benefits and importance of Direct Benefit Transfer system in India."
+      description: "Learn about the benefits and importance of Direct Benefit Transfer system in India.",
+      languages: {
+        english: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
+        hindi: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
+        tamil: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti"
+      }
     },
     {
       id: 2,
       title: "Aadhaar Linking Benefits Explained",
       duration: "5:30",
       thumbnail: "https://images.pexels.com/photos/4386321/pexels-photo-4386321.jpeg?auto=compress&cs=tinysrgb&w=400",
-      description: "Understand why Aadhaar linking is crucial for receiving government benefits."
+      description: "Understand why Aadhaar linking is crucial for receiving government benefits.",
+      languages: {
+        english: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
+        hindi: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
+        tamil: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti"
+      }
     },
     {
       id: 3,
       title: "Common DBT Issues and Solutions",
       duration: "6:15",
       thumbnail: "https://images.pexels.com/photos/5473956/pexels-photo-5473956.jpeg?auto=compress&cs=tinysrgb&w=400",
-      description: "Troubleshoot common problems faced during DBT enrollment and usage."
+      description: "Troubleshoot common problems faced during DBT enrollment and usage.",
+      languages: {
+        english: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
+        hindi: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
+        tamil: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti"
+      }
     },
     {
       id: 4,
       title: "Success Stories - DBT Impact",
       duration: "4:20",
       thumbnail: "https://images.pexels.com/photos/5473958/pexels-photo-5473958.jpeg?auto=compress&cs=tinysrgb&w=400",
-      description: "Real stories of how DBT has transformed lives across rural and urban India."
+      description: "Real stories of how DBT has transformed lives across rural and urban India.",
+      languages: {
+        english: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
+        hindi: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
+        tamil: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti"
+      }
     }
   ];
 
@@ -622,9 +642,29 @@ const Awareness = () => {
                   <h3 className="font-medium text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
                     {video.title}
                   </h3>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 mb-3">
                     {video.description}
                   </p>
+                  <div className="flex flex-wrap gap-2">
+                    <button 
+                      onClick={() => window.open(video.languages.english, '_blank')}
+                      className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded hover:bg-blue-200"
+                    >
+                      English
+                    </button>
+                    <button 
+                      onClick={() => window.open(video.languages.hindi, '_blank')}
+                      className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded hover:bg-green-200"
+                    >
+                      हिंदी
+                    </button>
+                    <button 
+                      onClick={() => window.open(video.languages.tamil, '_blank')}
+                      className="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded hover:bg-orange-200"
+                    >
+                      தமிழ்
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
