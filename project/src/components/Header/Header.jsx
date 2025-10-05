@@ -43,7 +43,7 @@ const Header = () => {
                 <Globe className="h-6 w-6" />
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-xl font-bold text-gray-900">DBT Portal</h1>
+                <h1 className="text-xl font-bold text-gray-900">ScholorX Portal</h1>
                 <p className="text-xs text-gray-600">Direct Benefit Transfer</p>
               </div>
             </Link>

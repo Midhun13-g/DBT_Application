@@ -140,7 +140,7 @@ const Awareness = () => {
       url: "https://pfms.nic.in/sitePages/doc/PFMS_Validation_Payment_Rejection_Remedies.pdf"
     },
     {
-      title: "DBT Guidelines 2024",
+      title: "DBT Guidelines 2025",
       type: "PDF",
       size: "2.5 MB",
       icon: FileText,
@@ -765,10 +765,10 @@ const Awareness = () => {
                 <ExternalLink className="h-5 w-5 text-blue-600" />
                 <div>
                   <h3 className="font-medium text-gray-900 group-hover:text-blue-600">
-                    DBT Bharat
+                    DBT Bharat - ScholorX
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Official DBT Portal
+                    Official DBT Portal - ScholorX Project
                   </p>
                 </div>
               </a>
