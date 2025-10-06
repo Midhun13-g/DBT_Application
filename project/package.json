@@ -8,7 +8,10 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "translation:check": "node src/utils/translationChecker.js",
+    "translation:validate": "node src/scripts/validateTranslations.js validate",
+    "translation:template": "node src/scripts/validateTranslations.js template"
   },
   "dependencies": {
     "@stomp/stompjs": "^7.2.0",

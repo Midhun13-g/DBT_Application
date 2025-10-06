@@ -32,6 +32,24 @@
     "save": "সেভ করুন",
     "delete": "মুছে ফেলুন",
     "edit": "সম্পাদনা করুন",
-    "view": "দেখুন"
+    "view": "দেখুন",
+    "learnMore": "আরো জানুন",
+    "accessNow": "এখনি অ্যাক্সেস করুন",
+    "startQuiz": "কুইজ শুরু করুন",
+    "closeQuiz": "কুইজ বন্ধ করুন",
+    "checkStatusNow": "এখনি স্ট্যাটাস চেক করুন",
+    "viewGuide": "গাইড দেখুন",
+    "myProfile": "আমার প্রোফাইল",
+    "viewNoticeBoard": "নোটিশ বোর্ড দেখুন",
+    "communityEvents": "কমিউনিটি ইভেন্ট",
+    "schoolActivities": "স্কুল কার্যক্রম",
+    "noticeBoard": "নোটিশ বোর্ড",
+    "noNoticesAvailable": "কোন নোটিশ নেই",
+    "checkBackLater": "আপডেট এবং ঘোষণার জন্য পরে চেক করুন।"
+  },
+  "portal": {
+    "title": "স্কলারএক্স পোর্টাল",
+    "subtitle": "প্রত্যক্ষ সুবিধা স্থানান্তর",
+    "mainTitle": "স্কলারএক্স - DBT স্ট্যাটাস পোর্টাল"
   }
 }

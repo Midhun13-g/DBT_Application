@@ -20,7 +20,7 @@ const Header = () => {
     { name: t('nav.dbtCheck'), href: '/dbt-check' },
     { name: t('nav.seedingGuide'), href: '/seeding-guide' },
     { name: t('nav.awareness'), href: '/awareness' },
-    { name: 'Community Events', href: '/events' },
+    { name: t('common.communityEvents'), href: '/events' },
   ];
 
   const [unreadCount] = useState(2); // Mock unread notifications count
@@ -43,8 +43,8 @@ const Header = () => {
                 <Globe className="h-6 w-6" />
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-xl font-bold text-gray-900">ScholorX Portal</h1>
-                <p className="text-xs text-gray-600">Direct Benefit Transfer</p>
+                <h1 className="text-xl font-bold text-gray-900">{t('portal.title')}</h1>
+                <p className="text-xs text-gray-600">{t('portal.subtitle')}</p>
               </div>
             </Link>
           </div>
@@ -112,7 +112,7 @@ const Header = () => {
                         onClick={() => setUserMenuOpen(false)}
                       >
                         <User className="h-4 w-4" />
-                        <span>My Profile</span>
+                        <span>{t('common.myProfile')}</span>
                       </Link>
                       <button
                         onClick={handleLogout}

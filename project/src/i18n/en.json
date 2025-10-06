@@ -95,6 +95,142 @@
     "save": "Save",
     "delete": "Delete",
     "edit": "Edit",
-    "view": "View"
+    "view": "View",
+    "learnMore": "Learn More",
+    "accessNow": "Access Now",
+    "startQuiz": "Start Quiz",
+    "closeQuiz": "Close Quiz",
+    "checkStatusNow": "Check Status Now",
+    "viewGuide": "View Guide",
+    "myProfile": "My Profile",
+    "viewNoticeBoard": "View Notice Board",
+    "communityEvents": "Community Events",
+    "schoolActivities": "School Activities",
+    "noticeBoard": "Notice Board",
+    "noNoticesAvailable": "No Notices Available",
+    "checkBackLater": "Check back later for updates and announcements."
+  },
+  "portal": {
+    "title": "ScholorX Portal",
+    "subtitle": "Direct Benefit Transfer",
+    "mainTitle": "ScholorX - DBT Status Portal"
+  },
+  "sections": {
+    "dbtVsAadhaar": {
+      "title": "What is DBT and What is Aadhaar Seeding?",
+      "dbtTitle": "What is DBT?",
+      "dbtDescription": "Direct Benefit Transfer is a government system that transfers subsidies and benefits directly to beneficiaries' bank accounts.",
+      "aadhaarTitle": "What is Aadhaar Seeding?",
+      "aadhaarDescription": "Aadhaar Seeding is the process of linking your Aadhaar number with your bank account to enable DBT services.",
+      "linkAadhaar": "Link Aadhaar",
+      "linkAadhaarDesc": "Connect your Aadhaar with bank account",
+      "directTransfer": "Direct Transfer",
+      "directTransferDesc": "Get benefits directly in your account",
+      "secureFast": "Secure & Fast",
+      "secureFastDesc": "Safe transfers within 24-48 hours"
+    },
+    "updates": {
+      "title": "Latest Updates & Announcements",
+      "subtitle": "Stay informed with the latest news and important notices"
+    },
+    "quickAccess": {
+      "title": "Quick Access Portal",
+      "subtitle": "Access all services and information in one place",
+      "noticeBoard": {
+        "title": "Notice Board",
+        "description": "Latest announcements and updates"
+      },
+      "schoolActivities": {
+        "title": "School Activities",
+        "description": "Workshops, meetings, and events"
+      },
+      "communityEvents": {
+        "title": "Community Events",
+        "description": "Upcoming events and activities"
+      }
+    },
+    "features": {
+      "title": "Why Choose DBT Portal?",
+      "secure": {
+        "title": "Secure & Safe",
+        "description": "Government-grade security for your data"
+      },
+      "multilingual": {
+        "title": "Multi-language",
+        "description": "Available in English, Hindi, and Tamil"
+      },
+      "instantStatus": {
+        "title": "Instant Status",
+        "description": "Real-time DBT status verification"
+      }
+    },
+    "stats": {
+      "citizensServed": "Citizens Served",
+      "citizensServedValue": "1.2M+",
+      "citizensServedSubtitle": "Across India",
+      "banksConnected": "Banks Connected",
+      "banksConnectedValue": "150+",
+      "banksConnectedSubtitle": "Major banks",
+      "successRate": "Success Rate",
+      "successRateValue": "98%",
+      "successRateSubtitle": "DBT linking",
+      "supportCenters": "Support Centers",
+      "supportCentersValue": "500+",
+      "supportCentersSubtitle": "Nationwide"
+    },
+    "schemes": {
+      "title": "Government Schemes",
+      "subtitle": "Explore various government schemes and benefits available through DBT",
+      "eligibility": "Eligibility:",
+      "amount": "Amount:",
+      "status": "Active",
+      "preMatric": {
+        "title": "Pre-Matric Scholarship",
+        "description": "Financial assistance for SC/ST/OBC students studying in classes I-X",
+        "eligibility": "Students from SC/ST/OBC categories",
+        "amount": "₹1,000 - ₹5,700 per year"
+      },
+      "postMatric": {
+        "title": "Post-Matric Scholarship",
+        "description": "Support for higher education for SC/ST/OBC students",
+        "eligibility": "Students pursuing higher education",
+        "amount": "₹2,000 - ₹12,000 per year"
+      },
+      "pmKisan": {
+        "title": "PM-KISAN Scheme",
+        "description": "Income support to farmer families",
+        "eligibility": "Small and marginal farmers",
+        "amount": "₹6,000 per year"
+      },
+      "pmAwas": {
+        "title": "Pradhan Mantri Awas Yojana",
+        "description": "Housing for all by 2022",
+        "eligibility": "Economically weaker sections",
+        "amount": "₹1.2 - ₹2.5 lakh subsidy"
+      },
+      "ayushman": {
+        "title": "Ayushman Bharat",
+        "description": "Health insurance coverage",
+        "eligibility": "Poor and vulnerable families",
+        "amount": "₹5 lakh per family per year"
+      },
+      "nsap": {
+        "title": "National Social Assistance Programme",
+        "description": "Social security for elderly, widows, and disabled",
+        "eligibility": "BPL families",
+        "amount": "₹200 - ₹1,000 per month"
+      }
+    },
+    "quiz": {
+      "title": "Test Your DBT Knowledge",
+      "subtitle": "Take our interactive quiz to learn more about Direct Benefit Transfer",
+      "cardTitle": "DBT Knowledge Quiz",
+      "cardDescription": "Test your understanding of DBT with 5 quick questions. Learn while you play!",
+      "learnMoreAboutDBT": "Learn More About DBT"
+    },
+    "cta": {
+      "title": "Ready to Check Your DBT Status?",
+      "subtitle": "Get started in seconds with your Aadhaar details and account information."
+    }
   }
 }

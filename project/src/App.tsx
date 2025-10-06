@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer';
 import AppRoutes from './routes/AppRoutes';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import Chatbot from './components/Chatbot/Chatbot';
+import LanguageEnforcer from './components/LanguageEnforcer/LanguageEnforcer';
 
 import './i18n/i18n';
 
@@ -43,8 +44,9 @@ function App() {
         <AuthProvider>
           <LanguageProvider>
             <DBTProvider>
-
-              <AppContent />
+              <LanguageEnforcer>
+                <AppContent />
+              </LanguageEnforcer>
             </DBTProvider>
           </LanguageProvider>
         </AuthProvider>

@@ -82,22 +82,22 @@ const Home = () => {
 
   const quickLinks = [
     {
-      title: 'Notice Board',
-      description: 'Latest announcements and updates',
+      title: t('sections.quickAccess.noticeBoard.title'),
+      description: t('sections.quickAccess.noticeBoard.description'),
       icon: CheckCircle,
       href: '/notice-board',
       color: 'blue'
     },
     {
-      title: 'School Activities',
-      description: 'Workshops, meetings, and events',
+      title: t('sections.quickAccess.schoolActivities.title'),
+      description: t('sections.quickAccess.schoolActivities.description'),
       icon: Users,
       href: '/school-activities',
       color: 'green'
     },
     {
-      title: 'Community Events',
-      description: 'Upcoming events and activities',
+      title: t('sections.quickAccess.communityEvents.title'),
+      description: t('sections.quickAccess.communityEvents.description'),
       icon: Calendar,
       href: '/events',
       color: 'purple'
@@ -107,71 +107,71 @@ const Home = () => {
   const features = [
     {
       icon: Shield,
-      title: 'Secure & Safe',
-      description: 'Government-grade security for your data'
+      title: t('sections.features.secure.title'),
+      description: t('sections.features.secure.description')
     },
     {
       icon: Globe,
-      title: 'Multi-language',
-      description: 'Available in English, Hindi, and Tamil'
+      title: t('sections.features.multilingual.title'),
+      description: t('sections.features.multilingual.description')
     },
     {
       icon: Zap,
-      title: 'Instant Status',
-      description: 'Real-time DBT status verification'
+      title: t('sections.features.instantStatus.title'),
+      description: t('sections.features.instantStatus.description')
     }
   ];
 
   const schemes = [
     {
-      title: 'Pre-Matric Scholarship',
-      description: 'Financial assistance for SC/ST/OBC students studying in classes I-X',
-      eligibility: 'Students from SC/ST/OBC categories',
-      amount: '₹1,000 - ₹5,700 per year',
-      status: 'Active'
+      title: t('sections.schemes.preMatric.title'),
+      description: t('sections.schemes.preMatric.description'),
+      eligibility: t('sections.schemes.preMatric.eligibility'),
+      amount: t('sections.schemes.preMatric.amount'),
+      status: t('sections.schemes.status')
     },
     {
-      title: 'Post-Matric Scholarship',
-      description: 'Support for higher education for SC/ST/OBC students',
-      eligibility: 'Students pursuing higher education',
-      amount: '₹2,000 - ₹12,000 per year',
-      status: 'Active'
+      title: t('sections.schemes.postMatric.title'),
+      description: t('sections.schemes.postMatric.description'),
+      eligibility: t('sections.schemes.postMatric.eligibility'),
+      amount: t('sections.schemes.postMatric.amount'),
+      status: t('sections.schemes.status')
     },
     {
-      title: 'PM-KISAN Scheme',
-      description: 'Income support to farmer families',
-      eligibility: 'Small and marginal farmers',
-      amount: '₹6,000 per year',
-      status: 'Active'
+      title: t('sections.schemes.pmKisan.title'),
+      description: t('sections.schemes.pmKisan.description'),
+      eligibility: t('sections.schemes.pmKisan.eligibility'),
+      amount: t('sections.schemes.pmKisan.amount'),
+      status: t('sections.schemes.status')
     },
     {
-      title: 'Pradhan Mantri Awas Yojana',
-      description: 'Housing for all by 2022',
-      eligibility: 'Economically weaker sections',
-      amount: '₹1.2 - ₹2.5 lakh subsidy',
-      status: 'Active'
+      title: t('sections.schemes.pmAwas.title'),
+      description: t('sections.schemes.pmAwas.description'),
+      eligibility: t('sections.schemes.pmAwas.eligibility'),
+      amount: t('sections.schemes.pmAwas.amount'),
+      status: t('sections.schemes.status')
     },
     {
-      title: 'Ayushman Bharat',
-      description: 'Health insurance coverage',
-      eligibility: 'Poor and vulnerable families',
-      amount: '₹5 lakh per family per year',
-      status: 'Active'
+      title: t('sections.schemes.ayushman.title'),
+      description: t('sections.schemes.ayushman.description'),
+      eligibility: t('sections.schemes.ayushman.eligibility'),
+      amount: t('sections.schemes.ayushman.amount'),
+      status: t('sections.schemes.status')
     },
     {
-      title: 'National Social Assistance Programme',
-      description: 'Social security for elderly, widows, and disabled',
-      eligibility: 'BPL families',
-      amount: '₹200 - ₹1,000 per month',
-      status: 'Active'
+      title: t('sections.schemes.nsap.title'),
+      description: t('sections.schemes.nsap.description'),
+      eligibility: t('sections.schemes.nsap.eligibility'),
+      amount: t('sections.schemes.nsap.amount'),
+      status: t('sections.schemes.status')
     }
   ];
 
   const stats = [
-    { title: 'Citizens Served', value: '1.2M+', subtitle: 'Across India' },
-    { title: 'Banks Connected', value: '150+', subtitle: 'Major banks' },
-    { title: 'Success Rate', value: '98%', subtitle: 'DBT linking' },
-    { title: 'Support Centers', value: '500+', subtitle: 'Nationwide' }
+    { title: t('sections.stats.citizensServed'), value: t('sections.stats.citizensServedValue'), subtitle: t('sections.stats.citizensServedSubtitle') },
+    { title: t('sections.stats.banksConnected'), value: t('sections.stats.banksConnectedValue'), subtitle: t('sections.stats.banksConnectedSubtitle') },
+    { title: t('sections.stats.successRate'), value: t('sections.stats.successRateValue'), subtitle: t('sections.stats.successRateSubtitle') },
+    { title: t('sections.stats.supportCenters'), value: t('sections.stats.supportCentersValue'), subtitle: t('sections.stats.supportCentersSubtitle') }
   ];
 
   return (
@@ -181,7 +181,7 @@ const Home = () => {
         <div className="mx-auto max-w-7xl">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-              ScholorX - DBT Status Portal
+              {t('portal.mainTitle')}
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-xl text-gray-600">
               {t('home.subtitle')}
@@ -189,12 +189,12 @@ const Home = () => {
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/dbt-check">
                 <Button size="lg" icon={CheckCircle}>
-                  Check DBT Status
+                  {t('home.checkStatus')}
                 </Button>
               </Link>
               <Link to="/seeding-guide">
                 <Button variant="outline" size="lg" icon={BookOpen}>
-                  View Guide
+                  {t('common.viewGuide')}
                 </Button>
               </Link>
             </div>
@@ -212,16 +212,16 @@ const Home = () => {
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              What is DBT and What is Aadhaar Seeding?
+              {t('sections.dbtVsAadhaar.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-6">
               <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                <h3 className="text-lg font-semibold text-blue-900 mb-2">What is DBT?</h3>
-                <p className="text-gray-700">Direct Benefit Transfer is a government system that transfers subsidies and benefits directly to beneficiaries' bank accounts.</p>
+                <h3 className="text-lg font-semibold text-blue-900 mb-2">{t('sections.dbtVsAadhaar.dbtTitle')}</h3>
+                <p className="text-gray-700">{t('sections.dbtVsAadhaar.dbtDescription')}</p>
               </div>
               <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-                <h3 className="text-lg font-semibold text-green-900 mb-2">What is Aadhaar Seeding?</h3>
-                <p className="text-gray-700">Aadhaar Seeding is the process of linking your Aadhaar number with your bank account to enable DBT services.</p>
+                <h3 className="text-lg font-semibold text-green-900 mb-2">{t('sections.dbtVsAadhaar.aadhaarTitle')}</h3>
+                <p className="text-gray-700">{t('sections.dbtVsAadhaar.aadhaarDescription')}</p>
               </div>
             </div>
             <img 
@@ -237,24 +237,24 @@ const Home = () => {
               <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
                 <Users className="h-6 w-6 text-blue-600" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-2">Link Aadhaar</h4>
-              <p className="text-gray-600 text-sm">Connect your Aadhaar with bank account</p>
+              <h4 className="font-semibold text-gray-900 mb-2">{t('sections.dbtVsAadhaar.linkAadhaar')}</h4>
+              <p className="text-gray-600 text-sm">{t('sections.dbtVsAadhaar.linkAadhaarDesc')}</p>
             </Card>
             
             <Card className="p-4 text-center">
               <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
                 <CheckCircle className="h-6 w-6 text-green-600" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-2">Direct Transfer</h4>
-              <p className="text-gray-600 text-sm">Get benefits directly in your account</p>
+              <h4 className="font-semibold text-gray-900 mb-2">{t('sections.dbtVsAadhaar.directTransfer')}</h4>
+              <p className="text-gray-600 text-sm">{t('sections.dbtVsAadhaar.directTransferDesc')}</p>
             </Card>
             
             <Card className="p-4 text-center">
               <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
                 <Zap className="h-6 w-6 text-purple-600" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-2">Secure & Fast</h4>
-              <p className="text-gray-600 text-sm">Safe transfers within 24-48 hours</p>
+              <h4 className="font-semibold text-gray-900 mb-2">{t('sections.dbtVsAadhaar.secureFast')}</h4>
+              <p className="text-gray-600 text-sm">{t('sections.dbtVsAadhaar.secureFastDesc')}</p>
             </Card>
           </div>
         </div>
@@ -265,10 +265,10 @@ const Home = () => {
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Latest Updates & Announcements
+              {t('sections.updates.title')}
             </h2>
             <p className="text-xl text-gray-600">
-              Stay informed with the latest news and important notices
+              {t('sections.updates.subtitle')}
             </p>
           </div>
 
@@ -340,11 +340,11 @@ const Home = () => {
             ) : (
               <Card className="col-span-3 text-center py-8">
                 <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No Notices Available</h3>
-                <p className="text-gray-600">Check back later for updates and announcements.</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">{t('common.noNoticesAvailable')}</h3>
+                <p className="text-gray-600">{t('common.checkBackLater')}</p>
                 <Link to="/notice-board">
                   <Button variant="outline" className="mt-4">
-                    View Notice Board
+                    {t('common.viewNoticeBoard')}
                   </Button>
                 </Link>
               </Card>
@@ -359,10 +359,10 @@ const Home = () => {
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Quick Access Portal
+              {t('sections.quickAccess.title')}
             </h2>
             <p className="text-xl text-gray-600">
-              Access all services and information in one place
+              {t('sections.quickAccess.subtitle')}
             </p>
           </div>
 
@@ -399,7 +399,7 @@ const Home = () => {
                         {link.description}
                       </p>
                       <div className={`flex items-center justify-center ${colorClasses[link.color].split(' ')[2]} group-hover:${colorClasses[link.color].split(' ')[2].replace('600', '700')}`}>
-                        <span className="text-sm font-medium">Access Now</span>
+                        <span className="text-sm font-medium">{t('common.accessNow')}</span>
                         <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
@@ -416,7 +416,7 @@ const Home = () => {
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Why Choose DBT Portal?
+              {t('sections.features.title')}
             </h2>
           </div>
 
@@ -461,10 +461,10 @@ const Home = () => {
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Government Schemes
+              {t('sections.schemes.title')}
             </h2>
             <p className="text-xl text-gray-600">
-              Explore various government schemes and benefits available through DBT
+              {t('sections.schemes.subtitle')}
             </p>
           </div>
 
@@ -485,18 +485,18 @@ const Home = () => {
                   </p>
                   <div className="space-y-2 text-sm">
                     <div>
-                      <span className="font-medium text-gray-700">Eligibility: </span>
+                      <span className="font-medium text-gray-700">{t('sections.schemes.eligibility')} </span>
                       <span className="text-gray-600">{scheme.eligibility}</span>
                     </div>
                     <div>
-                      <span className="font-medium text-gray-700">Amount: </span>
+                      <span className="font-medium text-gray-700">{t('sections.schemes.amount')} </span>
                       <span className="text-green-600 font-semibold">{scheme.amount}</span>
                     </div>
                   </div>
                   <div className="mt-4 pt-4 border-t border-gray-200">
                     <Link to={`/schemes/${getSchemeId(scheme.title)}`}>
                       <Button variant="outline" size="sm" className="w-full">
-                        Learn More
+                        {t('common.learnMore')}
                       </Button>
                     </Link>
                   </div>
@@ -512,10 +512,10 @@ const Home = () => {
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Test Your DBT Knowledge
+              {t('sections.quiz.title')}
             </h2>
             <p className="text-xl text-gray-600">
-              Take our interactive quiz to learn more about Direct Benefit Transfer
+              {t('sections.quiz.subtitle')}
             </p>
           </div>
 
@@ -524,17 +524,17 @@ const Home = () => {
               <Card padding="xl" className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 max-w-2xl mx-auto">
                 <Brain className="h-16 w-16 text-purple-600 mx-auto mb-4" />
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  DBT Knowledge Quiz
+                  {t('sections.quiz.cardTitle')}
                 </h3>
                 <p className="text-lg text-gray-600 mb-6">
-                  Test your understanding of DBT with 5 quick questions. Learn while you play!
+                  {t('sections.quiz.cardDescription')}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button size="lg" icon={Brain} onClick={() => setShowQuiz(true)}>
-                    Start Quiz
+                    {t('common.startQuiz')}
                   </Button>
                   <Button variant="outline" size="lg">
-                    Learn More About DBT
+                    {t('sections.quiz.learnMoreAboutDBT')}
                   </Button>
                 </div>
               </Card>
@@ -544,7 +544,7 @@ const Home = () => {
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-xl font-semibold text-gray-900">DBT Knowledge Quiz</h3>
                 <Button variant="outline" onClick={() => setShowQuiz(false)}>
-                  Close Quiz
+                  {t('common.closeQuiz')}
                 </Button>
               </div>
               <DBTQuiz />
@@ -558,20 +558,20 @@ const Home = () => {
         <div className="mx-auto max-w-4xl text-center">
           <Card padding="xl" className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Ready to Check Your DBT Status?
+              {t('sections.cta.title')}
             </h2>
             <p className="text-xl text-gray-600 mb-8">
-              Get started in seconds with your Aadhaar details and account information.
+              {t('sections.cta.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/dbt-check">
                 <Button size="lg" icon={CheckCircle}>
-                  Check Status Now
+                  {t('common.checkStatusNow')}
                 </Button>
               </Link>
               <Link to="/events">
                 <Button variant="outline" size="lg" icon={Calendar}>
-                  Community Events
+                  {t('common.communityEvents')}
                 </Button>
               </Link>
             </div>

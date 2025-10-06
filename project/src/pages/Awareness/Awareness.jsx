@@ -82,50 +82,50 @@ const Awareness = () => {
   const videos = [
     {
       id: 1,
-      title: "Understanding DBT - Complete Overview",
-      duration: "8:45",
-      thumbnail: "https://images.pexels.com/photos/5473955/pexels-photo-5473955.jpeg?auto=compress&cs=tinysrgb&w=400",
-      description: "Learn about the benefits and importance of Direct Benefit Transfer system in India.",
+      title: "DBT System Overview & Benefits",
+      duration: "12:15",
+      thumbnail: "https://img.youtube.com/vi/LVM3iQXImEk/hqdefault.jpg",
+      description: "Comprehensive overview of Direct Benefit Transfer system and its advantages for citizens.",
       languages: {
-        english: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
-        hindi: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
-        tamil: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti"
+        english: "https://youtu.be/LVM3iQXImEk?si=dZvHjMsfsWdYakRe",
+        hindi: "https://youtu.be/LVM3iQXImEk?si=dZvHjMsfsWdYakRe",
+        tamil: "https://youtu.be/LVM3iQXImEk?si=dZvHjMsfsWdYakRe"
       }
     },
     {
       id: 2,
-      title: "Aadhaar Linking Benefits Explained",
-      duration: "5:30",
-      thumbnail: "https://images.pexels.com/photos/4386321/pexels-photo-4386321.jpeg?auto=compress&cs=tinysrgb&w=400",
-      description: "Understand why Aadhaar linking is crucial for receiving government benefits.",
+      title: "Aadhaar Seeding Process Guide",
+      duration: "7:20",
+      thumbnail: "https://img.youtube.com/vi/UkgTTVs7nqM/hqdefault.jpg",
+      description: "Step-by-step guide for Aadhaar seeding with bank accounts and common troubleshooting tips.",
       languages: {
-        english: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
-        hindi: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
-        tamil: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti"
+        english: "https://youtu.be/UkgTTVs7nqM?si=pyCS1wr6c4nJWq6W",
+        hindi: "https://youtu.be/UkgTTVs7nqM?si=pyCS1wr6c4nJWq6W",
+        tamil: "https://youtu.be/UkgTTVs7nqM?si=pyCS1wr6c4nJWq6W"
       }
     },
     {
       id: 3,
-      title: "Common DBT Issues and Solutions",
-      duration: "6:15",
-      thumbnail: "https://images.pexels.com/photos/5473956/pexels-photo-5473956.jpeg?auto=compress&cs=tinysrgb&w=400",
-      description: "Troubleshoot common problems faced during DBT enrollment and usage.",
+      title: "Digital Banking & Financial Literacy",
+      duration: "10:30",
+      thumbnail: "https://img.youtube.com/vi/LJnXKZiJ9r4/hqdefault.jpg",
+      description: "Learn essential digital banking skills and financial literacy for secure online transactions.",
       languages: {
-        english: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
-        hindi: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
-        tamil: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti"
+        english: "https://youtu.be/LJnXKZiJ9r4?si=w_0EKw-dttTYYef8",
+        hindi: "https://youtu.be/LJnXKZiJ9r4?si=w_0EKw-dttTYYef8",
+        tamil: "https://youtu.be/LJnXKZiJ9r4?si=w_0EKw-dttTYYef8"
       }
     },
     {
       id: 4,
-      title: "Success Stories - DBT Impact",
-      duration: "4:20",
-      thumbnail: "https://images.pexels.com/photos/5473958/pexels-photo-5473958.jpeg?auto=compress&cs=tinysrgb&w=400",
-      description: "Real stories of how DBT has transformed lives across rural and urban India.",
+      title: "Government Schemes & Benefits Guide",
+      duration: "8:45",
+      thumbnail: "https://img.youtube.com/vi/gjPkUF23UTg/hqdefault.jpg",
+      description: "Complete guide to government welfare schemes and how to access your benefits online.",
       languages: {
-        english: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
-        hindi: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti",
-        tamil: "https://youtu.be/gjPkUF23UTg?si=qcMUIuB7MlDhQ7Ti"
+        english: "https://youtu.be/gjPkUF23UTg?si=9J1pX7u88pkizRws",
+        hindi: "https://youtu.be/gjPkUF23UTg?si=9J1pX7u88pkizRws",
+        tamil: "https://youtu.be/gjPkUF23UTg?si=9J1pX7u88pkizRws"
       }
     }
   ];
@@ -351,7 +351,11 @@ const Awareness = () => {
   };
 
   const handleVideoPlay = (video) => {
-    setSelectedVideo(video);
+    const videoWithUrl = {
+      ...video,
+      url: video.languages.english.replace('youtu.be/', 'www.youtube.com/embed/').replace('?si=', '?')
+    };
+    setSelectedVideo(videoWithUrl);
     setShowVideoModal(true);
   };
 
@@ -646,26 +650,7 @@ const Awareness = () => {
                   <p className="text-sm text-gray-600 mb-3">
                     {video.description}
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    <button 
-                      onClick={() => window.open(video.languages.english, '_blank')}
-                      className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded hover:bg-blue-200"
-                    >
-                      English
-                    </button>
-                    <button 
-                      onClick={() => window.open(video.languages.hindi, '_blank')}
-                      className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded hover:bg-green-200"
-                    >
-                      हिंदी
-                    </button>
-                    <button 
-                      onClick={() => window.open(video.languages.tamil, '_blank')}
-                      className="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded hover:bg-orange-200"
-                    >
-                      தமிழ்
-                    </button>
-                  </div>
+
                 </div>
               ))}
             </div>
@@ -782,16 +767,41 @@ const Awareness = () => {
         isOpen={showVideoModal}
         onClose={() => setShowVideoModal(false)}
         title={selectedVideo?.title}
-        size="lg"
+        size="xl"
       >
-        <div className="aspect-video bg-gray-900 rounded-lg flex items-center justify-center mb-4">
-          <div className="text-center text-white">
-            <Play className="h-16 w-16 mx-auto mb-4 opacity-50" />
-            <p>Video player would be embedded here</p>
-            <p className="text-sm opacity-75 mt-2">Duration: {selectedVideo?.duration}</p>
+        <div className="space-y-4">
+          <div className="aspect-video bg-gray-900 rounded-lg overflow-hidden">
+            {selectedVideo?.url ? (
+              <iframe
+                src={selectedVideo.url}
+                title={selectedVideo.title}
+                className="w-full h-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full text-center text-white">
+                <div>
+                  <Play className="h-16 w-16 mx-auto mb-4 opacity-50" />
+                  <p>Video player would be embedded here</p>
+                  <p className="text-sm opacity-75 mt-2">Duration: {selectedVideo?.duration}</p>
+                </div>
+              </div>
+            )}
           </div>
+          {selectedVideo?.description && (
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <h4 className="font-medium text-gray-900 mb-2">About this video</h4>
+              <p className="text-gray-700">{selectedVideo.description}</p>
+              <div className="flex items-center space-x-4 mt-3 text-sm text-gray-600">
+                <span>Duration: {selectedVideo.duration}</span>
+                <span>•</span>
+                <span>Educational Content</span>
+              </div>
+            </div>
+          )}
         </div>
-        <p className="text-gray-600">{selectedVideo?.description}</p>
       </Modal>
     </div>
   );
