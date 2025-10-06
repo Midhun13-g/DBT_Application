@@ -227,7 +227,7 @@ const Home = () => {
             <img 
               src="https://soft-techsolutions.com/assets/img/Banner-of-aadhaar-deeding.png" 
               alt="DBT Aadhaar Seeding Process" 
-              className="w-full rounded-lg shadow-lg"
+              className="w-full rounded-lg mix-blend-multiply opacity-90 bg-white p-4"
             />
           </div>
 
